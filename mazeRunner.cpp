@@ -38,10 +38,10 @@ int main(void){
         printMainMenu();
         std::cin >> userChoice;
         if(userChoice == 1 || userChoice == 2 || userChoice == 3 || userChoice == 4 || userChoice == 5){
-            curState = ST_Exit;
-
+            curState = ST_Exit;            
             if(userChoice == 1){
                 printGenerateMazeMenu();
+                
             }
             else if(userChoice == 2){
                 printGenerateMazeMenu();
@@ -54,6 +54,7 @@ int main(void){
             }
             else{
                 printExitMessage();
+
             }
         }
         else{
