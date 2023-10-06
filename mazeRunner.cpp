@@ -55,6 +55,18 @@ int main(void){
         if (userChoice == 2){
             BuildMaze();
         }
+        if (userChoice == 3){
+            solveMaze();
+        }
+        if (userChoice == 4){
+            showTeamInformation();
+        }
+        if (userChoice == 5){
+            exit();
+        }
+        else {
+            std::cout << "Error. Input is invalid. Please enter a number from 1 to 5." << std::endl;
+        }
 
         
     }
@@ -76,5 +88,15 @@ static void generateMaze() {
 }
 
 static void BuildMaze(){
+
+}
+
+static void solveMaze(){
+
+}
+static void showTeamInformation(){
+
+}
+static void exit(){
 
 }
