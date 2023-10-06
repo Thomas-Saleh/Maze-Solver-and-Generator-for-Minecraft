@@ -69,32 +69,3 @@ int main(void){
             std::cout << "Error. Input is invalid. Please enter a number from 1 to 5." << std::endl;
         }
 
-        
-    }
-     
-    printExitMessage();
-
-
-    return EXIT_SUCCESS;
-
-}
-
-static void printExitMessage() {
-    std::cout << "**End Printing Maze**";
-
-}
-
-static void generateMaze() {
-    //generate maze
-}
-
-static void BuildMaze(){
-
-}
-
-static void solveMaze(){
-
-}
-static void showTeamInformation(){
-
-}
