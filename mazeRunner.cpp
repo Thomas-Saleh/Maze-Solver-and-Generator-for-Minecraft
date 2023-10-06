@@ -19,7 +19,7 @@ enum States{
 
 int main(void){
 
-    bool mode = NORMAL_MODE;
+    //bool mode = NORMAL_MODE;
     //read Mode
 
     
@@ -32,7 +32,8 @@ int main(void){
     //State machine for menu        
     while (curState != ST_Exit)
     {
-        //Do something
+        std::cout << "Welcome to MineCraft MazeRunner!" << std::endl << "--------------------------------" << std::endl;
+        curState = ST_Exit;
     }
 
     printExitMassage();
