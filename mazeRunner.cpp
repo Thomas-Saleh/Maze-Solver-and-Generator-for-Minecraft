@@ -62,7 +62,8 @@ int main(void){
             showTeamInformation();
         }
         if (userChoice == 5){
-            exit();
+            printExitMessage();
+            curState = ST_Exit;
         }
         else {
             std::cout << "Error. Input is invalid. Please enter a number from 1 to 5." << std::endl;
@@ -95,8 +96,5 @@ static void solveMaze(){
 
 }
 static void showTeamInformation(){
-
-}
-static void exit(){
 
 }
