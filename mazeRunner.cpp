@@ -32,7 +32,9 @@ int main(void){
     //State machine for menu        
     while (curState != ST_Exit)
     {
-        std::cout << "Welcome to MineCraft MazeRunner!" << std::endl << "--------------------------------" << std::endl;
+        std::cout << "Welcome to MineCraft MazeRunner!" << std::endl << "--------------------------------" << std::endl; //welcome message
+
+
         curState = ST_Exit;
     }
 
