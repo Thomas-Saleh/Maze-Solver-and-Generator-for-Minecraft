@@ -28,14 +28,16 @@ int main(void){
     mc.doCommand("time set day"); 
 
     States curState = ST_Main;
-    int userChoice = 0;
+ //   int userChoice = 0;
     
 
     //State machine for menu        
     while (curState != ST_Exit)
     {
-        
-
+        printMainMenu();
+    }
 }
+
+ 
 
 
