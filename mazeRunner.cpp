@@ -34,38 +34,8 @@ int main(void){
     //State machine for menu        
     while (curState != ST_Exit)
     {
-        std::cout << "Welcome to MineCraft MazeRunner!" << std::endl << "--------------------------------" << std::endl; //welcome message
-
-
         
-        std::cout << "------------- MAIN MENU -------------" << std::endl;
-        std::cout << "1) Generate Maze" << std::endl;
-        std::cout << "2) Build Maze in MineCraft" << std::endl;
-        std::cout << "3) Solve Maze" << std::endl;
-        std::cout << "4) Show Team Information" << std::endl;
-        std::cout << "5) Exit" << std::endl;
-        std::cout << "" << std::endl;
-        std::cout << "Enter Menu item to continue:" << std::endl;
-        std::cin >> userChoice;
 
-        if (userChoice == 1) {
-            generateMaze();
-        }
+}
 
-        if (userChoice == 2){
-            BuildMaze();
-        }
-        if (userChoice == 3){
-            solveMaze();
-        }
-        if (userChoice == 4){
-            showTeamInformation();
-        }
-        if (userChoice == 5){
-            printExitMessage();
-            curState = ST_Exit;
-        }
-        else {
-            std::cout << "Error. Input is invalid. Please enter a number from 1 to 5." << std::endl;
-        }
 
