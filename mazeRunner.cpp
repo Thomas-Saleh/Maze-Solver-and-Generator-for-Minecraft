@@ -20,7 +20,7 @@ enum States{
 int main(void){
 
     //bool mode = NORMAL_MODE;
-    //read Mode
+    //read Mode;
 
     
 
@@ -34,34 +34,63 @@ int main(void){
     //State machine for menu        
     while (curState != ST_Exit)
     {
+
         printStartText();
         printMainMenu();
-        std::cin >> userChoice;
-        if(userChoice == 1 || userChoice == 2 || userChoice == 3 || userChoice == 4 || userChoice == 5){
-            curState = ST_Exit;            
+        std::cin >> userChoice;    
             if(userChoice == 1){
                 printGenerateMazeMenu();
-                
+
+                int userChoice2;
+                std::cin >> userChoice2;
+                if (userChoice2 == 1){
+                    int baseX, baseY, baseZ;
+                    readBasePoint(baseX, baseY, baseZ);
+
+                    int mazeLength, mazeWidth;
+                    readLengthAndWidth(mazeLength, mazeWidth);
+
+                    std::vector<std::string> maze;
+                    readMazeStructure(maze, mazeLength, mazeWidth);
+
+                    printMazeInfo(maze, baseX, baseY, baseZ);
+                }              
+
+                if (userChoice2 == 2) {
+                    int baseX, baseY, baseZ;
+                    readBasePoint(baseX, baseY, baseZ);
+
+                    int mazeLength, mazeWidth;
+                    readLengthAndWidth(mazeLength, mazeWidth);
+                }    
             }
             else if(userChoice == 2){
-                printGenerateMazeMenu();
+                //Maze();
+                
             }
             else if(userChoice == 3){
                 printSolveMazeMenu();
+                
             }
             else if(userChoice == 4){
                 printTeamInfo();
+                
             }
-            else{
+            else if(userChoice == 5){
                 printExitMessage();
+                curState = ST_Exit;
 
             }
-        }
-        else{
-            std::cout << "Error. Input Invalid. Please enter a number from 1 to 5." << std::endl;
-        }
+            else { 
+                std::cout << "Input Error: Enter a number between 1 and 5 ...." << std::endl;
+                
+            }
     }
 }
+
+
+
+
 
  
 
