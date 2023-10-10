@@ -40,10 +40,9 @@ int main(void){
         std::cin >> userChoice;    
             if(userChoice == 1){
                 printGenerateMazeMenu();
+                std::cin >> userChoice;
 
-                int userChoice2;
-                std::cin >> userChoice2;
-                if (userChoice2 == 1){
+                if (userChoice == 1){
                     int baseX, baseY, baseZ;
                     readBasePoint(baseX, baseY, baseZ);
 
@@ -54,7 +53,9 @@ int main(void){
                     readMazeStructure(maze, mazeLength, mazeWidth);
 
                     printMazeInfo(maze, baseX, baseY, baseZ);
-                }              
+
+                    //Generating User-Inputted Maze in MC
+                    mcpp::Coordinate buildStart(baseX, baseY, baseZ);
 
                     for(int row = 0; row < mazeLength; row++){
                         for(int col = 0; col < mazeWidth; col++){
@@ -100,6 +101,15 @@ int main(void){
             }
     }
 }
+
+
+
+
+
+ 
+
+
+
 
 
 
