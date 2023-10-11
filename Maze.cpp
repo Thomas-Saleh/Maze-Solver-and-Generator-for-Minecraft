@@ -1,6 +1,8 @@
 #include "Maze.h"
 #include <random>
 
+Maze::Maze(){
+}
 
 Maze::Maze(mcpp::Coordinate basePoint, unsigned int xlen, unsigned int zlen, bool mode){
 }
@@ -8,11 +10,8 @@ Maze::Maze(mcpp::Coordinate basePoint, unsigned int xlen, unsigned int zlen, boo
 Maze::~Maze(){
 }
 
-void generateManualMaze(const std::vector<std::string>& maze, unsigned int length, unsigned int width, int baseX, int baseY, int baseZ){
+void generateManualMaze(const std::vector<std::string>& maze, unsigned int length, unsigned int width, mcpp::Coordinate buildStart){
     mcpp::MinecraftConnection mc; 
-    
-    //Generating User-Inputted Maze in MC
-    mcpp::Coordinate buildStart(baseX, baseY, baseZ);
     
     for(int row = 0; row < length; row++){
                         for(int col = 0; col < width; col++){

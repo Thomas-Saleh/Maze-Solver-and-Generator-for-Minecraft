@@ -54,9 +54,12 @@ int main(void){
                     readMazeStructure(maze, mazeLength, mazeWidth);
 
                     printMazeInfo(maze, baseX, baseY, baseZ);
+                        
+                    //Generating User-Inputted Maze in MC
+                    mcpp::Coordinate buildStart(baseX, baseY, baseZ);
 
                     Maze manualMaze;
-                    manualMaze.generateManualMaze(maze, mazeLength, mazeWidth, baseX, baseY, baseZ);
+                    manualMaze.generateManualMaze(maze, mazeLength, mazeWidth, buildStart);
 
                     
                 }              
