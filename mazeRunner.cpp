@@ -32,6 +32,7 @@ int main(void){
     int userChoice = 0;
     int mazeLength, mazeWidth;
     int baseX, baseY, baseZ; 
+    std::vector<std::string> maze;
     //State machine for menu        
     while (curState != ST_Exit)
     {
@@ -49,7 +50,6 @@ int main(void){
 
                     readLengthAndWidth(mazeLength, mazeWidth);
 
-                    std::vector<std::string> maze;
                     readMazeStructure(maze, mazeLength, mazeWidth);
 
                     printMazeInfo(maze, baseX, baseY, baseZ);
@@ -57,13 +57,16 @@ int main(void){
                 }              
 
                 if (userChoice == 2) {
-                    //random generator vincent do this now
+                    readBasePoint(baseX, baseY, baseZ);
+                    readLengthAndWidth(mazeLength, mazeWidth);
+                    
+                    Maze randomMaze;
+                    randomMaze.generateRandomMaze(maze, mazeLength, mazeWidth);
                 }    
             }
             else if(userChoice == 2){
                 mcpp::Coordinate buildStart(baseX, baseY, baseZ);
 
-                std::vector<std::string> maze;
                 Maze manualMaze;
                 manualMaze.generateManualMaze(maze, mazeLength, mazeWidth, buildStart);
                 

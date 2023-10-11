@@ -1,0 +1,12 @@
+{
+    "configurations": [
+    {
+    "type": "lldb",
+    "request": "launch",
+    "name": "mazeRunner.cpp",
+    "program": "/home/marko/markoPS2/PS2/github-classroom/rmit-computing-technologies/cosc2804-sep-23-assignment-3-team-63-cosc2804-sep23/mazeRunner.cpp",
+    "args": [],
+    "cwd": "/home/marko/markoPS2/PS2/github-classroom/rmit-computing-technologies/cosc2804-sep-23-assignment-3-team-63-cosc2804-sep23/"
+    }
+    ]
+    }
