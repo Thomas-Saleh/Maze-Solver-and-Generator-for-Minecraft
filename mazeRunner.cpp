@@ -28,9 +28,10 @@ int main(void){
     mc.doCommand("time set day"); 
 
     States curState = ST_Main;
-    int userChoice = 0;
-    
 
+    int userChoice = 0;
+    int mazeLength, mazeWidth;
+    int baseX, baseY, baseZ; 
     //State machine for menu        
     while (curState != ST_Exit)
     {
@@ -43,36 +44,28 @@ int main(void){
                 std::cin >> userChoice;
 
                 if (userChoice == 1){   
-                    int baseX, baseY, baseZ;
+                    
                     readBasePoint(baseX, baseY, baseZ);
 
-                    int mazeLength, mazeWidth;
                     readLengthAndWidth(mazeLength, mazeWidth);
 
                     std::vector<std::string> maze;
                     readMazeStructure(maze, mazeLength, mazeWidth);
 
                     printMazeInfo(maze, baseX, baseY, baseZ);
-                        
-                    //Generating User-Inputted Maze in MC
-                    mcpp::Coordinate buildStart(baseX, baseY, baseZ);
-
-                    Maze manualMaze;
-                    manualMaze.generateManualMaze(maze, mazeLength, mazeWidth, buildStart);
-
                     
                 }              
 
                 if (userChoice == 2) {
-                    int baseX, baseY, baseZ;
-                    readBasePoint(baseX, baseY, baseZ);
-
-                    int mazeLength, mazeWidth;
-                    readLengthAndWidth(mazeLength, mazeWidth);
+                    //random generator vincent do this now
                 }    
             }
             else if(userChoice == 2){
-                //Maze();
+                mcpp::Coordinate buildStart(baseX, baseY, baseZ);
+
+                std::vector<std::string> maze;
+                Maze manualMaze;
+                manualMaze.generateManualMaze(maze, mazeLength, mazeWidth, buildStart);
                 
             }
             else if(userChoice == 3){

@@ -1,6 +1,9 @@
 #include "Maze.h"
 #include <random>
 
+#include <chrono>
+#include <thread>
+
 Maze::Maze(){
 }
 
@@ -22,6 +25,8 @@ void Maze::generateManualMaze(const std::vector<std::string>& maze, int length, 
                             else{
                                 mc.setBlock(buildStart + mcpp::Coordinate(row, -60, col) , mcpp::Blocks::AIR);
                             }
+
+                            //std::this_thread::sleep_for(std::chrono::milliseconds(50));
                         }
                     }
 }
