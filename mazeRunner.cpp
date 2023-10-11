@@ -54,7 +54,8 @@ int main(void){
 
                     printMazeInfo(maze, baseX, baseY, baseZ);
 
-                    Maze::generateManualMaze(maze, mazeLength, mazeWidth, baseX, baseY, baseZ);
+                    Maze manualMaze;
+                    manualMaze.generateManualMaze(maze, mazeLength, mazeWidth, baseX, baseY, baseZ);
 
                     
                 }              
