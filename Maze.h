@@ -1,6 +1,7 @@
 #ifndef ASSIGN_MAZE_H
 #define ASSIGN_MAZE_H
 
+#include <iostream>
 #include <vector>
 #include <mcpp/mcpp.h>
 

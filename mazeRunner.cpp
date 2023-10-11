@@ -43,6 +43,7 @@ int main(void){
                 std::cin >> userChoice;
 
                 if (userChoice == 1){
+                    
                     int baseX, baseY, baseZ;
                     readBasePoint(baseX, baseY, baseZ);
 
