@@ -54,20 +54,9 @@ int main(void){
 
                     printMazeInfo(maze, baseX, baseY, baseZ);
 
-                    //Generating User-Inputted Maze in MC
-                    mcpp::Coordinate buildStart(baseX, baseY, baseZ);
+                    Maze::generateManualMaze(maze, mazeLength, mazeWidth, baseX, baseY, baseZ);
 
-                    for(int row = 0; row < mazeLength; row++){
-                        for(int col = 0; col < mazeWidth; col++){
-                            if(maze[row][col] == 'x'){
-                                mc.setBlock(buildStart + mcpp::Coordinate(row, -60, col) , mcpp::Blocks::DIAMOND_BLOCK);
-                                mc.setBlock(buildStart + mcpp::Coordinate(row, -59, col) , mcpp::Blocks::DIAMOND_BLOCK); //Second layer of maze
-                            }
-                            else{
-                                mc.setBlock(buildStart + mcpp::Coordinate(row, -60, col) , mcpp::Blocks::AIR);
-                            }
-                        }
-                    }
+                    
                 }              
 
                 if (userChoice == 2) {
