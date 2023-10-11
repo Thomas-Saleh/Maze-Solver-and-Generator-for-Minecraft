@@ -43,6 +43,7 @@ int main(void){
                 std::cin >> userChoice;
 
                 if (userChoice == 1){
+                    
                     int baseX, baseY, baseZ;
                     readBasePoint(baseX, baseY, baseZ);
 
@@ -55,6 +56,8 @@ int main(void){
                     printMazeInfo(maze, baseX, baseY, baseZ);
 
                     //Generating User-Inputted Maze in MC
+                    
+
                     mcpp::Coordinate buildStart(baseX, baseY, baseZ);
 
                     for(int row = 0; row < mazeLength; row++){
