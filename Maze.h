@@ -13,6 +13,7 @@ public:
     Maze();
     ~Maze();
     void generateManualMaze(const std::vector<std::string>& maze, int length, int width, mcpp::Coordinate buildStart);
+    void generateRandomMaze(std::vector<std::string>& maze, int length, int width);
 
 private:
     /* data */

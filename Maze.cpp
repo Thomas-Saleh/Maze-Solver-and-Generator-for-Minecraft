@@ -30,3 +30,23 @@ void Maze::generateManualMaze(const std::vector<std::string>& maze, int length, 
                         }
                     }
 }
+
+void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int width){
+    
+    //Simply makes a square/rectangle of the desired size for a user's random maze
+    for(int row = 0; row < width; row++){
+        for(int col = 0; col < length; col++){
+            maze[row][col] = 'x';
+        }
+    }
+
+    std::vector<std::string> mazeCopy;
+    int counter = 0;
+    for(int row =0; row < width; row++){
+        for(int col =0; col < length; col++){
+            counter++;
+            mazeCopy[row][col] = counter;
+        }
+    }
+
+}
