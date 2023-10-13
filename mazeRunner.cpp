@@ -70,7 +70,7 @@ int main(void){
                 }    
             }
             else if(userChoice == 2){
-                mc.doCommand("fill ~-18 ~-3 ~-18 ~18 ~ ~18 minecraft:air ");
+                mc.doCommand("fill ~-18 ~-13 ~-18 ~18 ~ ~18 minecraft:air ");
                 
                
                 Maze manualMaze;
