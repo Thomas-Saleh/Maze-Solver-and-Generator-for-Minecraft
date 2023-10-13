@@ -61,7 +61,7 @@ int main(void){
 
                     readBasePoint(baseX, baseY, baseZ);
                     readLengthAndWidth(mazeLength, mazeWidth);
-
+                    // filler
                     generateRandomMaze(maze, mazeLength, mazeWidth);
                 }    
             }
