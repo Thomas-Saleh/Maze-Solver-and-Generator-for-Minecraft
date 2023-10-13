@@ -13,7 +13,9 @@ Maze::Maze(mcpp::Coordinate basePoint, unsigned int xlen, unsigned int zlen, boo
 Maze::~Maze(){
 }
 
-void Maze::generateManualMaze(const std::vector<std::string>& maze, int length, int width, mcpp::Coordinate buildStart){
+
+
+void Maze::buildMaze(const std::vector<std::string>& maze, int length, int width, mcpp::Coordinate buildStart){
     mcpp::MinecraftConnection mc; 
     
     for(int row = 0; row < length; row++){
@@ -29,17 +31,4 @@ void Maze::generateManualMaze(const std::vector<std::string>& maze, int length, 
                             std::this_thread::sleep_for(std::chrono::milliseconds(50));
                         }
                     }
-}
-
-void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int width){
-    
-    //Simply makes a square/rectangle of the desired size for a user's random maze
-    for(int row = 0; row < width; row++){
-        for(int col = 0; col < length; col++){
-            if(row == 0 || col == 0 || row == width - 1 || col == length - 1){
-                maze[row][col] = 'x';
-            }
-        }
-    }
-
 }
