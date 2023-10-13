@@ -64,11 +64,7 @@ int main(void){
                     readLengthAndWidth(mazeLength, mazeWidth);
                     
                     Maze randomMaze;
-                    randomMaze.generateRandomMaze(maze, mazeLength, mazeWidth);
-
-                    
-
-                    generateRandomMaze(maze, mazeLength, mazeWidth);
+                    buildMaze(maze, mazeLength, mazeWidth);
                 }    
             }
             else if(userChoice == 2){

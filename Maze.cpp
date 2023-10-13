@@ -15,7 +15,7 @@ Maze::~Maze(){
 
 
 
-void Maze::generateManualMaze(const std::vector<std::string>& maze, int length, int width, mcpp::Coordinate buildStart){
+void Maze::buildMaze(const std::vector<std::string>& maze, int length, int width, mcpp::Coordinate buildStart){
     mcpp::MinecraftConnection mc; 
     
     for(int row = 0; row < length; row++){
