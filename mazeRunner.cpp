@@ -53,6 +53,7 @@ int main(void){
                     readMazeStructure(maze, mazeLength, mazeWidth);
 
                     printMazeInfo(maze, baseX, baseY, baseZ);
+                
                     
                 }              
 
@@ -61,13 +62,15 @@ int main(void){
 
                     readBasePoint(baseX, baseY, baseZ);
                     readLengthAndWidth(mazeLength, mazeWidth);
-                    // filler
+
                     generateRandomMaze(maze, mazeLength, mazeWidth);
                 }    
             }
             else if(userChoice == 2){
+                mc.doCommand("fill ~-18 ~-3 ~-18 ~18 ~ ~18 minecraft:air ");
+                
                 mcpp::Coordinate buildStart(baseX, baseY, baseZ);
-
+               
                 Maze manualMaze;
                 manualMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
                 

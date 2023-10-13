@@ -13,6 +13,8 @@ Maze::Maze(mcpp::Coordinate basePoint, unsigned int xlen, unsigned int zlen, boo
 Maze::~Maze(){
 }
 
+
+
 void Maze::buildMaze(const std::vector<std::string>& maze, int length, int width, mcpp::Coordinate buildStart){
     mcpp::MinecraftConnection mc; 
     

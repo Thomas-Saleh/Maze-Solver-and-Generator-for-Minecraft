@@ -14,6 +14,7 @@ public:
     ~Maze();
     void buildMaze(const std::vector<std::string>& maze, int length, int width, mcpp::Coordinate buildStart);
 
+
 private:
     /* data */
 
