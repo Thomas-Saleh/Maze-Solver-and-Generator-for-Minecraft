@@ -33,6 +33,8 @@ int main(void){
     int mazeLength, mazeWidth;
     int baseX, baseY, baseZ; 
     std::vector<std::string> maze;
+    mcpp::Coordinate buildStart(baseX, baseY, baseZ);
+
     //State machine for menu        
     while (curState != ST_Exit)
     {
@@ -58,19 +60,18 @@ int main(void){
                 }              
 
                 if (userChoice == 2) {
-                    Maze randomMaze;
+                    
 
                     readBasePoint(baseX, baseY, baseZ);
                     readLengthAndWidth(mazeLength, mazeWidth);
                     
-                    Maze randomMaze;
-                    buildMaze(maze, mazeLength, mazeWidth);
+                    Maze manualMaze;
+                    manualMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
                 }    
             }
             else if(userChoice == 2){
                 mc.doCommand("fill ~-18 ~-3 ~-18 ~18 ~ ~18 minecraft:air ");
                 
-                mcpp::Coordinate buildStart(baseX, baseY, baseZ);
                
                 Maze manualMaze;
                 manualMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
