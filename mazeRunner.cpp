@@ -73,6 +73,15 @@ int main(void){
             }
             else if(userChoice == 3){
                 printSolveMazeMenu();
+                std::cin >> userChoice;
+
+                if (userChoice == 1) {
+                    
+                }
+
+                if (userChoice == 2) {
+                    
+                }
                 
             }
             else if(userChoice == 4){
