@@ -57,18 +57,19 @@ int main(void){
                 }              
 
                 if (userChoice == 2) {
+                    Maze randomMaze;
+
                     readBasePoint(baseX, baseY, baseZ);
                     readLengthAndWidth(mazeLength, mazeWidth);
-                    
-                    Maze randomMaze;
-                    randomMaze.generateRandomMaze(maze, mazeLength, mazeWidth);
+
+                    generateRandomMaze(maze, mazeLength, mazeWidth);
                 }    
             }
             else if(userChoice == 2){
                 mcpp::Coordinate buildStart(baseX, baseY, baseZ);
 
                 Maze manualMaze;
-                manualMaze.generateManualMaze(maze, mazeLength, mazeWidth, buildStart);
+                manualMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
                 
             }
             else if(userChoice == 3){

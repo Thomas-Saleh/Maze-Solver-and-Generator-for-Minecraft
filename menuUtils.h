@@ -97,4 +97,16 @@ void printMazeInfo(const std::vector<std::string>& maze, int baseX, int baseY, i
     std::cout << "**End Printing Maze**" << std::endl;
 }
 
+void generateRandomMaze(std::vector<std::string>& maze, int length, int width){
+    for(int row = 0; row < width; row++){
+        for(int col = 0; col < length; col++){
+            if(row == 0 || col == 0 || row == width - 1 || col == length - 1){
+                maze[row][col] = 'x';
+            }
+            else{
+                maze[row][col] = '.';
+            }
+        }
+    }
+}
 
