@@ -70,7 +70,7 @@ int main(void){
                 }    
             }
             else if(userChoice == 2){
-                mc.doCommand("fill ~-18 ~-13 ~-18 ~18 ~ ~18 minecraft:air ");
+                mc.doCommand("fill ~-"+ std::to_string(mazeLength) + " ~-13 ~-1 ~18 ~ ~18 minecraft:bricks replace minecraft:dirt");
                 
                
                 Maze manualMaze;
