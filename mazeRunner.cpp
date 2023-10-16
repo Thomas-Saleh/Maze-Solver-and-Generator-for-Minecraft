@@ -64,9 +64,12 @@ int main(void){
 
                     readBasePoint(baseX, baseY, baseZ);
                     readLengthAndWidth(mazeLength, mazeWidth);
+                    generateRandomMaze(maze, mazeLength, mazeWidth);
                     
-                    Maze manualMaze;
-                    manualMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
+                    Maze randomMaze;
+                    randomMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
+
+                    printMazeInfo(maze, baseX, baseY, baseZ);
                 }    
             }
             else if(userChoice == 2){

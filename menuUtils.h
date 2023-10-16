@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 void printStartText(void){
     std::cout << std::endl;
@@ -98,15 +100,34 @@ void printMazeInfo(const std::vector<std::string>& maze, int baseX, int baseY, i
 }
 
 void generateRandomMaze(std::vector<std::string>& maze, int length, int width){
+    
+    //Creates a perimeter for the maze
     for(int row = 0; row < width; row++){
+        std::string mazeRow;
         for(int col = 0; col < length; col++){
             if(row == 0 || col == 0 || row == width - 1 || col == length - 1){
-                maze[row][col] = 'x';
+                mazeRow += 'x';
             }
             else{
-                maze[row][col] = '.';
+                mazeRow += '.';
+            }
+            if(col == length - 1){
+                maze.push_back(mazeRow);
             }
         }
     }
+
+    //Creating a random starting point
+    std::srand(std::time(0));
+    int randomRow, randomCol;
+
+    do{
+        randomRow = std::rand() % width;
+        randomCol = std::rand() % length;
+    }
+    while(randomRow < width || randomRow > 0 || randomCol < length || randomCol > 0);
+    
+    maze[randomRow][randomCol] = '.';
+
 }
 
