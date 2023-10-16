@@ -110,3 +110,10 @@ void generateRandomMaze(std::vector<std::string>& maze, int length, int width){
     }
 }
 
+void solveMazeManually() {
+
+}
+
+void showEscapeRoute() {
+    
+}
