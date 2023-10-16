@@ -13,7 +13,7 @@ public:
     Maze();
     ~Maze();
     void buildMaze(const std::vector<std::string>& maze, int length, int width, mcpp::Coordinate buildStart);
-
+    void teleportPlayerToRandomDot(const std::vector<std::string>& maze);
 
 private:
     /* data */
