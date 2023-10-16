@@ -70,8 +70,12 @@ int main(void){
                 }    
             }
             else if(userChoice == 2){
-                mc.doCommand("fill ~-18 ~-13 ~-18 ~18 ~ ~18 minecraft:air ");
-                
+                int height = baseY -47;
+                std::string playerName = "@a";
+                std::string tpCommand = "tp " + playerName + " " + std::to_string(baseX) + " " + std::to_string(height) + " " + std::to_string(baseZ);
+                mc.doCommand(tpCommand);
+                mc.doCommand("fill ~-18 ~-13 ~-18 ~18 ~ ~18 minecraft:air"); 
+                  
                
                 Maze manualMaze;
                 manualMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
