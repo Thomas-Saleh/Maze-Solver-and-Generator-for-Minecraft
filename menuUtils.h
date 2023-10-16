@@ -109,20 +109,45 @@ void printMazeInfo(const std::vector<std::string>& maze, int baseX, int baseY, i
 
 void generateRandomMaze(std::vector<std::string>& maze, int length, int width){
     
-    //Creates a perimeter for the maze
+    //Creates a rectangle of the specified H | W
     for(int row = 0; row < width; row++){
         std::string mazeRow;
         for(int col = 0; col < length; col++){
-            if(row == 0 || col == 0 || row == width - 1 || col == length - 1){
-                mazeRow += 'x';
-            }
-            else{
-                mazeRow += '.';
-            }
+            mazeRow += 'x';
             if(col == length - 1){
                 maze.push_back(mazeRow);
             }
         }
     }
+
+    //Randomly choose a starting point
+    srand(100);
+
+    int startX, startY;
+
+    if(rand() % 2 == 0){
+        startX = 1 + rand() % (length - 2);
+        if(rand() % 2 == 0){
+            startY = 0;
+        } 
+        else{
+            startY = width - 1;
+        }
+    } 
+    else{
+        startY = 1 + rand() % (width - 2);
+        if(rand() % 2 == 0){
+            startX = 0;
+        } 
+        else{
+            startX = length - 1;
+        }
+    }
+
+    maze[startX][startY] = '*';
+
+    //Carve a path
+    
+
 }
 
