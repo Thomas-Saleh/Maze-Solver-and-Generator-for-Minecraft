@@ -11,6 +11,8 @@ void printTextWithDelay(const std::string& text, int delay_ms) {
     }
     std::cout << std::endl;
 }
+#include <cstdlib>
+#include <ctime>
 
 void printStartText(void) {
     std::cout << std::endl;
@@ -105,17 +107,22 @@ void printMazeInfo(const std::vector<std::string>& maze, int baseX, int baseY, i
     printTextWithDelay("**End Printing Maze**", 50);
 }
 
-void generateRandomMaze(std::vector<std::string>& maze, int length, int width) {
-    for (int row = 0; row < width; row++) {
-        for (int col = 0; col < length; col++) {
-            if (row == 0 || col == 0 || row == width - 1 || col == length - 1) {
-                maze[row][col] = 'x';
+void generateRandomMaze(std::vector<std::string>& maze, int length, int width){
+    
+    //Creates a perimeter for the maze
+    for(int row = 0; row < width; row++){
+        std::string mazeRow;
+        for(int col = 0; col < length; col++){
+            if(row == 0 || col == 0 || row == width - 1 || col == length - 1){
+                mazeRow += 'x';
             }
-            else {
-                maze[row][col] = '.';
+            else{
+                mazeRow += '.';
+            }
+            if(col == length - 1){
+                maze.push_back(mazeRow);
             }
         }
     }
 }
-
 
