@@ -28,7 +28,7 @@ void Maze::buildMaze(const std::vector<std::string>& maze, int length, int width
                                 mc.setBlock(buildStart + mcpp::Coordinate(row, -60, col) , mcpp::Blocks::AIR);
                             }
 
-                            std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                            std::this_thread::sleep_for(std::chrono::milliseconds(500));
                         }
                     }
 }
