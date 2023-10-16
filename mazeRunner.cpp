@@ -35,7 +35,7 @@ int main(void){
     std::vector<std::string> maze;
     mcpp::Coordinate buildStart(baseX, baseY, baseZ);
 
-    //State machine for menu        
+    // State machine for menu        
     while (curState != ST_Exit)
     {
 
