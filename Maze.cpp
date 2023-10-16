@@ -4,6 +4,7 @@
 #include <chrono>
 #include <thread>
 
+
 Maze::Maze(){
 }
 
@@ -33,4 +34,41 @@ void Maze::buildMaze(const std::vector<std::string>& maze, int length, int width
                             std::this_thread::sleep_for(std::chrono::milliseconds(500));
                         }
                     }
+}
+
+void Maze::teleportPlayerToRandomDot(const std::vector<std::string>& maze) {
+    mcpp::MinecraftConnection mc; 
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // Collect coordinates of all '.' (dot) cells in the maze
+    std::vector<std::pair<std::vector<std::string>::size_type, std::string::size_type>> dotCoordinates;
+
+    for (std::vector<std::string>::size_type row = 0; row < maze.size(); row++) {
+        for (std::string::size_type col = 0; col < maze[row].size(); col++) {
+            if (maze[row][col] == '.') {
+                dotCoordinates.push_back(std::make_pair(row, col));
+            }
+        }
+    }
+
+    if (dotCoordinates.empty()) {
+        std::cout << "No '.' cells found in the maze." << std::endl;
+        return; // No valid teleport destination
+    }
+
+    // Randomly select one of the '.' cells
+    std::uniform_int_distribution<std::vector<std::string>::size_type> distribution(0, dotCoordinates.size() - 1);
+    std::vector<std::string>::size_type randomIndex = distribution(gen);
+
+    // Extract row and column from the selected coordinates
+    std::vector<std::string>::size_type selectedRow = dotCoordinates[randomIndex].first;
+    std::string::size_type selectedCol = dotCoordinates[randomIndex].second;
+
+    // Teleport the player to the selected coordinates
+    std::string playerName = "@a";
+    std::string tpCommand = "tp " + playerName + " " + std::to_string(selectedRow) + " -60 " + std::to_string(selectedCol);
+    // Execute the teleportation command using your Minecraft connection
+     mc.doCommand(tpCommand);
 }

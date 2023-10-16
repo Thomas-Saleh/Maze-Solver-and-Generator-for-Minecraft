@@ -89,7 +89,8 @@ int main(void){
                 std::cin >> userChoice;
 
                 if (userChoice == 1) {
-                    
+                   Maze teleportToMaze;
+                   teleportToMaze.teleportPlayerToRandomDot(maze);
                 }
 
                 if (userChoice == 2) {
