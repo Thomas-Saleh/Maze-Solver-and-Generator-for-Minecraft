@@ -22,20 +22,20 @@ int main(void){
     //bool mode = NORMAL_MODE;
     //read Mode;
 
-    
+   
 
-    mcpp::MinecraftConnection mc; 
-    mc.doCommand("time set day"); 
+    mcpp::MinecraftConnection mc;
+    mc.doCommand("time set day");
 
     States curState = ST_Main;
 
     int userChoice = 0;
     int mazeLength, mazeWidth;
-    int baseX, baseY, baseZ; 
+    int baseX, baseY, baseZ;
     std::vector<std::string> maze;
     mcpp::Coordinate buildStart(baseX, baseY, baseZ);
 
-    //State machine for menu        
+    // State machine for menu        
     while (curState != ST_Exit)
     {
 
@@ -46,8 +46,8 @@ int main(void){
                 printGenerateMazeMenu();
                 std::cin >> userChoice;
 
-                if (userChoice == 1){   
-                    
+                if (userChoice == 1){  
+                   
                     readBasePoint(baseX, baseY, baseZ);
 
                     readLengthAndWidth(mazeLength, mazeWidth);
@@ -55,17 +55,17 @@ int main(void){
                     readMazeStructure(maze, mazeLength, mazeWidth);
 
                     printMazeInfo(maze, baseX, baseY, baseZ);
-                
-                    
+               
+                   
                 }              
 
                 if (userChoice == 2) {
-                    
+                   
 
                     readBasePoint(baseX, baseY, baseZ);
                     readLengthAndWidth(mazeLength, mazeWidth);
                     generateRandomMaze(maze, mazeLength, mazeWidth);
-                    
+                   
                     Maze randomMaze;
                     randomMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
 
@@ -77,12 +77,12 @@ int main(void){
                 std::string playerName = "@a";
                 std::string tpCommand = "tp " + playerName + " " + std::to_string(baseX) + " " + std::to_string(height) + " " + std::to_string(baseZ);
                 mc.doCommand(tpCommand);
-                mc.doCommand("fill ~-18 ~-13 ~-18 ~18 ~ ~18 minecraft:air"); 
-                  
+                mc.doCommand("fill ~-18 ~-13 ~-18 ~18 ~ ~18 minecraft:air");
+                 
                
                 Maze manualMaze;
                 manualMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
-                
+               
             }
             else if(userChoice == 3){
                 printSolveMazeMenu();
@@ -94,39 +94,22 @@ int main(void){
                 }
 
                 if (userChoice == 2) {
-                    
+                   
                 }
-                
+               
             }
             else if(userChoice == 4){
                 printTeamInfo();
-                
+               
             }
             else if(userChoice == 5){
                 printExitMessage();
                 curState = ST_Exit;
 
             }
-            else { 
+            else {
                 std::cout << "Input Error: Enter a number between 1 and 5 ...." << std::endl;
-                
+               
             }
     }
 }
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
- 
-
-
