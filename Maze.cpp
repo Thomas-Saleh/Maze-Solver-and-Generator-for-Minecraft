@@ -72,3 +72,4 @@ void Maze::teleportPlayerToRandomDot(const std::vector<std::string>& maze) {
     // Execute the teleportation command using your Minecraft connection
      mc.doCommand(tpCommand);
 }
+
