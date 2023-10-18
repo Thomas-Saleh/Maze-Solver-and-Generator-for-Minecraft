@@ -100,48 +100,24 @@ void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int wi
     while((startX == 0 && startY == 0) || (startX == 0 && startY == length - 1) || (startX == width - 1 && startY == 0) || (startX == width - 1 && startY == length - 1));
 
     maze[startX][startY] = '*';
-    
-
-    
-    //Carving a path
-    int xPos, yPos;
 
     //Initial step into maze
         if(startX == 0){ //On left side of maze
             maze[startX + 1][startY] = '*';
             maze[startX][startY] = '.';
-            xPos = startX + 1;
-            yPos = startY;
         }
         else if(startX == width - 1){ //On Right side
             maze[startX - 1][startY] = '*';
             maze[startX][startY] = '.';
-            xPos = startX - 1;
-            yPos = startY;
         }
 
         if(startY == 0){ //Start at top
             maze[startX][startY + 1] = '*';
             maze[startX][startY] = '.';
-            xPos = startX;
-            yPos = startY + 1;
         }
         else if(startY == length - 1){ //Start at bottom
             maze[startX][startY - 1] = '*';
             maze[startX][startY] = '.';
-            xPos = startX;
-            yPos = startY - 1;
         }
-    
-    int previousDirectionX = startX;
-    int previousDirectionY = startY;
-
-    bool isValid = true;
-
-    //Big big loop
-    while(isValid = true){
-        
-    }
-    
 
 }
