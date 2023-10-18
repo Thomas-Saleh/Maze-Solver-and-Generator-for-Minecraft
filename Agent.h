@@ -27,9 +27,14 @@ class Agent
 public:
     Agent(mcpp::Coordinate startLoc);
     ~Agent();
+    
+
+   void initializePlayerBlock();
 
 private:
     /* data */
+    AgentOrientation currentOrientation; 
+
     mcpp::MinecraftConnection mc;
 
 };
