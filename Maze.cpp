@@ -1,8 +1,10 @@
 #include "Maze.h"
 #include <random>
-
+#include <ctime>
+#include <cstdlib>
 #include <chrono>
 #include <thread>
+#include <algorithm>
 
 
 Maze::Maze(){
@@ -67,7 +69,7 @@ void Maze::teleportPlayerToRandomDot(const std::vector<std::string>& maze) {
     std::string tpCommand = "tp " + playerName + " " + std::to_string(selectedRow) + " -60 " + std::to_string(selectedCol);
      mc.doCommand(tpCommand);
 }
-
+/*
 void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int width){
     
     //Creates a rectangle of the specified H | W
@@ -120,4 +122,54 @@ void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int wi
             maze[startX][startY] = '.';
         }
 
+}
+*/
+
+void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int width) {
+    // Initialize the maze with walls ('x')
+    for (int row = 0; row < length; row++) {
+        std::string mazeRow;
+        for (int col = 0; col < width; col++) {
+            mazeRow += 'x';
+        }
+        maze.push_back(mazeRow);
+    }
+
+    // Randomly choose a starting point (not on the edge)
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    int startX, startY;
+
+    do {
+        startX = std::rand() % (width - 2) + 1;
+        startY = std::rand() % (length - 2) + 1;
+    } while (startX % 2 == 0 || startY % 2 == 0);
+
+    // Call the recursive backtracking algorithm
+    recursiveBacktrack(maze, length, width, startX, startY);
+}
+
+void Maze::recursiveBacktrack(std::vector<std::string>& maze, int length, int width, int x, int y) {
+    // Define possible movement directions (up, down, left, right)
+    const int dx[] = {0, 0, -2, 2};
+    const int dy[] = {2, -2, 0, 0};
+    const int directions = 4;
+
+    // Mark the current cell as a path
+    maze[y][x] = '.';
+
+    // Randomly shuffle the directions
+    int dir[directions] = {0, 1, 2, 3};
+    std::random_shuffle(dir, dir + directions);
+
+    for (int i = 0; i < directions; i++) {
+        int nx = x + dx[dir[i]];
+        int ny = y + dy[dir[i]];
+
+        if (nx >= 1 && nx < width - 1 && ny >= 1 && ny < length - 1 && maze[ny][nx] == 'x') {
+            int mx = (x + nx) / 2;
+            int my = (y + ny) / 2;
+            maze[my][mx] = '.';
+            recursiveBacktrack(maze, length, width, nx, ny);
+        }
+    }
 }
