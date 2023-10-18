@@ -16,6 +16,8 @@ void Agent::initializePlayerBlock() {
     // Get the current player's location
     mcpp::Coordinate playerLoc = mc.getPlayerPosition();
 
+
+    
     // Assume the initial orientation with the right hand touching a wall
     // Check adjacent blocks to determine the orientation
     mcpp::BlockType blockInFront = mc.getBlock(playerLoc + MOVE_XPLUS);
