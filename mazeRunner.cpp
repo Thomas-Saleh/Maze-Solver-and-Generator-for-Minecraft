@@ -64,13 +64,10 @@ int main(void){
 
                     readBasePoint(baseX, baseY, baseZ);
                     readLengthAndWidth(mazeLength, mazeWidth);
-                    generateRandomMaze(maze, mazeLength, mazeWidth);
-<<<<<<< HEAD
-=======
-                   
+
                     Maze randomMaze;
+                    randomMaze.generateRandomMaze(maze, mazeLength, mazeWidth);
                     randomMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
->>>>>>> 6ef62bb2a37afb713d5f7a03bb31f095ae69e83d
 
                     printMazeInfo(maze, baseX, baseY, baseZ);
                 }    
