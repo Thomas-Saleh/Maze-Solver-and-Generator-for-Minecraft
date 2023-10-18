@@ -65,9 +65,6 @@ int main(void){
                     readBasePoint(baseX, baseY, baseZ);
                     readLengthAndWidth(mazeLength, mazeWidth);
                     generateRandomMaze(maze, mazeLength, mazeWidth);
-                    
-                    Maze randomMaze;
-                    randomMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
 
                     printMazeInfo(maze, baseX, baseY, baseZ);
                 }    

@@ -110,44 +110,55 @@ void printMazeInfo(const std::vector<std::string>& maze, int baseX, int baseY, i
 void generateRandomMaze(std::vector<std::string>& maze, int length, int width){
     
     //Creates a rectangle of the specified H | W
-    for(int row = 0; row < width; row++){
+    for(int col = 0; col < length; col++){
         std::string mazeRow;
-        for(int col = 0; col < length; col++){
+        for(int row = 0; row < width; row++){
             mazeRow += 'x';
-            if(col == length - 1){
+            if(row == width - 1){
                 maze.push_back(mazeRow);
             }
         }
     }
 
     //Randomly choose a starting point
-    srand(100);
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
     int startX, startY;
 
-    if(rand() % 2 == 0){
-        startX = 1 + rand() % (length - 2);
-        if(rand() % 2 == 0){
-            startY = 0;
-        } 
-        else{
-            startY = width - 1;
-        }
-    } 
-    else{
-        startY = 1 + rand() % (width - 2);
-        if(rand() % 2 == 0){
-            startX = 0;
-        } 
-        else{
-            startX = length - 1;
+    do{
+        if (std::rand() % 2 == 0) {
+            // Select a random edge along the top or bottom
+            startX = (std::rand() % 2 == 0) ? 0 : width - 1;
+            startY = std::rand() % length;
+        } else {
+            // Select a random edge along the left or right
+            startX = std::rand() % width;
+            startY = (std::rand() % 2 == 0) ? 0 : length - 1;
         }
     }
+    while((startX == 0 && startY == 0) || (startX == 0 && startY == length - 1) || (startX == width - 1 && startY == 0) || (startX == width - 1 && startY == length - 1));
 
     maze[startX][startY] = '*';
-
-    //Carve a path
     
+
+    
+    //Carving a path
+    //int xPos, yPos;
+
+    //Initial step into maze
+        if(startX == 0){ //On left side of maze
+            maze[startX + 1][startY] = '*';
+        }
+        else if(startX == width - 1){ //On Right side
+            maze[startX - 1][startY] = '*';
+        }
+
+        if(startY == 0){ //Start at top
+            maze[startX][startY + 1] = '*';
+        }
+        else if(startY == length - 1){ //Start at bottom
+            maze[startX][startY - 1] = '*';
+        }
 
 }
 
