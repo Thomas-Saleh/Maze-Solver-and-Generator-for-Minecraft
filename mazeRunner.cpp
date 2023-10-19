@@ -31,7 +31,9 @@ int main(void){
 
     int userChoice = 0;
     int mazeLength, mazeWidth;
-    int baseX, baseY, baseZ;
+    int baseX = 0;
+    int baseY = 0; 
+    int baseZ = 0;
     std::vector<std::string> maze;
     mcpp::Coordinate buildStart(baseX, baseY, baseZ);
 
