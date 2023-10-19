@@ -1,3 +1,4 @@
+
 #include <iostream>
 
 #include <mcpp/mcpp.h>
@@ -34,7 +35,7 @@ int main(void){
     int baseX, baseY, baseZ;
     std::vector<std::string> maze;
     mcpp::Coordinate buildStart(baseX, baseY, baseZ);
-
+   mcpp::Coordinate startLoc;
     // State machine for menu        
     while (curState != ST_Exit)
     {
@@ -93,8 +94,10 @@ int main(void){
                    teleportToMaze.teleportPlayerToRandomDot(maze);
                 }
 
-                if (userChoice == 2) {
-                   
+                if (userChoice == 2) {                
+
+                   Agent solveMaze(startLoc);
+                    solveMaze.initializePlayerBlock();
                 }
                
             }
@@ -113,3 +116,21 @@ int main(void){
             }
     }
 }
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
