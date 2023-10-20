@@ -15,6 +15,7 @@ public:
     void buildMaze(const std::vector<std::string>& maze, int length, int width, mcpp::Coordinate buildStart);
     void teleportPlayerToRandomDot(const std::vector<std::string>& maze);
     void generateRandomMaze(std::vector<std::string>& maze, int length, int width);
+    void recursiveBacktrack(std::vector<std::string>& maze, int length, int width, int x, int y);
 
 private:
     /* data */
