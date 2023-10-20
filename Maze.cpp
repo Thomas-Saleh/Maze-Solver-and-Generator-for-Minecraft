@@ -158,7 +158,8 @@ void Maze::recursiveBacktrack(std::vector<std::string>& maze, int length, int wi
     maze[y][x] = '.';
 
     int dir[directions] = {0, 1, 2, 3};
-    std::random_shuffle(dir, dir + directions);
+    std::mt19937 gen(std::random_device{}());
+    std::shuffle(dir, dir + directions, gen);
 
     for(int i = 0; i < directions; i++){
         int nx = x + dx[dir[i]];
