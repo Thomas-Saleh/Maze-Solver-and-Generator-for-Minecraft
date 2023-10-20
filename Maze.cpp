@@ -126,8 +126,7 @@ void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int wi
 */
 
 void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int width) {
-    // Initialize the maze with walls ('x')
-    for (int row = 0; row < length; row++) {
+    for(int row = 0; row < length; row++){
         std::string mazeRow;
         for (int col = 0; col < width; col++) {
             mazeRow += 'x';
@@ -135,44 +134,37 @@ void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int wi
         maze.push_back(mazeRow);
     }
 
-    // Set the entrance at the north wall, somewhere within the first half
     int entranceX = 1 + 2 * (std::rand() % ((width - 1) / 2));
     int entranceY = 0;
 
-    // Mark the entrance point as a path
     maze[entranceY][entranceX] = '.';
 
-    // Randomly choose a starting point (not on the edge)
     int startX, startY;
 
-    do {
+    do{
         startX = 1 + 2 * (std::rand() % ((width - 1) / 2));
         startY = 1 + 2 * (std::rand() % ((length - 1) / 2));
     } while (startX % 2 == 0 || startY % 2 == 0);
 
-    // Call the recursive backtracking algorithm
     recursiveBacktrack(maze, length, width, startX, startY);
 }
 
 
 void Maze::recursiveBacktrack(std::vector<std::string>& maze, int length, int width, int x, int y) {
-    // Define possible movement directions (up, down, left, right)
     const int dx[] = {0, 0, -2, 2};
     const int dy[] = {2, -2, 0, 0};
     const int directions = 4;
 
-    // Mark the current cell as a path
     maze[y][x] = '.';
 
-    // Randomly shuffle the directions
     int dir[directions] = {0, 1, 2, 3};
     std::random_shuffle(dir, dir + directions);
 
-    for (int i = 0; i < directions; i++) {
+    for(int i = 0; i < directions; i++){
         int nx = x + dx[dir[i]];
         int ny = y + dy[dir[i]];
 
-        if (nx >= 1 && nx < width - 1 && ny >= 1 && ny < length - 1 && maze[ny][nx] == 'x') {
+        if(nx >= 1 && nx < width - 1 && ny >= 1 && ny < length - 1 && maze[ny][nx] == 'x'){
             int mx = (x + nx) / 2;
             int my = (y + ny) / 2;
             maze[my][mx] = '.';
