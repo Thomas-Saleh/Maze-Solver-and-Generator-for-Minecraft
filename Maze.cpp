@@ -135,18 +135,25 @@ void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int wi
         maze.push_back(mazeRow);
     }
 
+    // Set the entrance at the north wall, somewhere within the first half
+    int entranceX = 1 + 2 * (std::rand() % ((width - 1) / 2));
+    int entranceY = 0;
+
+    // Mark the entrance point as a path
+    maze[entranceY][entranceX] = '.';
+
     // Randomly choose a starting point (not on the edge)
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
     int startX, startY;
 
     do {
-        startX = std::rand() % (width - 2) + 1;
-        startY = std::rand() % (length - 2) + 1;
+        startX = 1 + 2 * (std::rand() % ((width - 1) / 2));
+        startY = 1 + 2 * (std::rand() % ((length - 1) / 2));
     } while (startX % 2 == 0 || startY % 2 == 0);
 
     // Call the recursive backtracking algorithm
     recursiveBacktrack(maze, length, width, startX, startY);
 }
+
 
 void Maze::recursiveBacktrack(std::vector<std::string>& maze, int length, int width, int x, int y) {
     // Define possible movement directions (up, down, left, right)
