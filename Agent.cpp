@@ -11,6 +11,7 @@ Agent::~Agent()
 
 }
 
+
 void Agent::initializePlayerBlock() {
     mcpp::MinecraftConnection mc;
     // Get the current player's location
@@ -67,7 +68,7 @@ void Agent::guideToExit() {
             }
 
             // Update the agent's position
-            mc.doCommand("tp @a " + std::to_string(nextLocation.x) + " " + std::to_string(nextLocation.y) + " " + std::to_string(nextLocation.z));
+            //  mc.doCommand("tp @a " + std::to_string(nextLocation.x) + " " + std::to_string(nextLocation.y) + " " + std::to_string(nextLocation.z));
             
             // Update the agent's orientation based on the new location
             currentOrientation = getNewOrientation(currentLocation, nextLocation);
@@ -130,3 +131,4 @@ mcpp::Coordinate Agent::getNextLocation(const mcpp::Coordinate& currentLocation,
 
     return nextLocation;
 }
+

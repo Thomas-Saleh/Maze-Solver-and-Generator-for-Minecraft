@@ -126,7 +126,7 @@ void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int wi
 */
 
 void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int width) {
-    for(int row = 0; row < length; row++){
+    for (int row = 0; row < length; row++) {
         std::string mazeRow;
         for (int col = 0; col < width; col++) {
             mazeRow += 'x';
@@ -134,20 +134,43 @@ void Maze::generateRandomMaze(std::vector<std::string>& maze, int length, int wi
         maze.push_back(mazeRow);
     }
 
-    int entranceX = 1 + 2 * (std::rand() % ((width - 1) / 2));
+    int side = std::rand() % 4;
+    
+    int entranceX = 0;
     int entranceY = 0;
+
+    switch (side) {
+        case 0:  // North
+            entranceX = 1 + 2 * (std::rand() % ((width - 1) / 2));
+            entranceY = 0;
+            break;
+        case 1:  // South
+            entranceX = 1 + 2 * (std::rand() % ((width - 1) / 2));
+            entranceY = length - 1;
+            break;
+        case 2:  // East
+            entranceX = width - 1;
+            entranceY = 1 + 2 * (std::rand() % ((length - 1) / 2));
+            break;
+        case 3:  // West
+            entranceX = 0;
+            entranceY = 1 + 2 * (std::rand() % ((length - 1) / 2));
+            break;
+    }
 
     maze[entranceY][entranceX] = '.';
 
     int startX, startY;
 
-    do{
+    do {
         startX = 1 + 2 * (std::rand() % ((width - 1) / 2));
         startY = 1 + 2 * (std::rand() % ((length - 1) / 2));
     } while (startX % 2 == 0 || startY % 2 == 0);
 
     recursiveBacktrack(maze, length, width, startX, startY);
 }
+
+
 
 
 void Maze::recursiveBacktrack(std::vector<std::string>& maze, int length, int width, int x, int y) {

@@ -46,35 +46,49 @@ int main(void){
         printMainMenu();
         std::cin >> userChoice;    
             if(userChoice == 1){
-                printGenerateMazeMenu();
-                std::cin >> userChoice;
+                bool noError = true;
+                while(noError == true){
+                    printGenerateMazeMenu();
+                    std::cin >> userChoice;
 
-                if (userChoice == 1){  
-                    maze.clear();
-                    readBasePoint(baseX, baseY, baseZ);
+                    if (userChoice == 1){  
+                        maze.clear();
+                        readBasePoint(baseX, baseY, baseZ);
 
-                    readLengthAndWidth(mazeLength, mazeWidth);
+                        readLengthAndWidth(mazeLength, mazeWidth);
 
-                    readMazeStructure(maze, mazeLength, mazeWidth);
+                        readMazeStructure(maze, mazeLength, mazeWidth);
 
-                    printMazeInfo(maze, baseX, baseY, baseZ);
-               
+                        printMazeInfo(maze, baseX, baseY, baseZ);
+                        
+                        noError = false;
+                        continue;
                    
-                }              
+                    }              
 
-                if (userChoice == 2) {
-                   
-                    maze.clear();
-                    readBasePoint(baseX, baseY, baseZ);
-                    readLengthAndWidth(mazeLength, mazeWidth);
+                    else if (userChoice == 2) {
+                        maze.clear();
+                        readBasePoint(baseX, baseY, baseZ);
+                        readLengthAndWidth(mazeLength, mazeWidth);
                     
-                    Maze randomMaze;
-                    randomMaze.generateRandomMaze(maze, mazeLength, mazeWidth);
-                    randomMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
+                        Maze randomMaze;
+                        randomMaze.generateRandomMaze(maze, mazeLength, mazeWidth);
 
-                    printMazeInfo(maze, baseX, baseY, baseZ);
-                }    
+                        printMazeInfo(maze, baseX, baseY, baseZ);
+                        
+                        noError = false;
+                        continue;
+                    }   
+                    else if(userChoice == 3){
+                        noError = false;
+                        continue;
+                    } 
+                    else{
+                        std::cout << "Error. Please enter a number from 1 to 3" << std::endl;
+                    }
+                }
             }
+
             else if(userChoice == 2){
                 int height = baseY -60;
                 
@@ -104,8 +118,9 @@ int main(void){
 
                 if (userChoice == 2) {                
 
-                   Agent solveMaze(startLoc);
+                    Agent solveMaze(startLoc);
                     solveMaze.initializePlayerBlock();
+                    solveMaze.guideToExit();
                 }
                
             }
