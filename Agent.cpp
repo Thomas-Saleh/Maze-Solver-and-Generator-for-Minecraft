@@ -56,7 +56,7 @@ void Agent::guideToExit() {
         // Check if the next location is reachable (no wall)
         if (mc.getBlock(nextLocation) == mcpp::Blocks::AIR) {
             // Place LIME CARPET block at the current location
-            mc.doCommand("setblock " + std::to_string(currentLocation.x) + " " + std::to_string(currentLocation.y - 1) + " " + std::to_string(currentLocation.z) + " minecraft:lime_carpet");
+            mc.doCommand("setblock " + std::to_string(currentLocation.x) + " " + std::to_string(currentLocation.y) + " " + std::to_string(currentLocation.z) + " minecraft:lime_carpet");
             
             // Output path coordinates to the terminal
             std::cout << "Step[" << step << "]: (" << currentLocation.x << ", " << currentLocation.y << ", " << currentLocation.z << ")\n";
@@ -64,7 +64,7 @@ void Agent::guideToExit() {
             // Remove the previous LIME CARPET block
             if (step > 0) {
                 mcpp::Coordinate previousLocation = mc.getPlayerPosition();
-                mc.doCommand("setblock " + std::to_string(previousLocation.x) + " " + std::to_string(previousLocation.y - 1) + " " + std::to_string(previousLocation.z) + " minecraft:air");
+                mc.doCommand("setblock " + std::to_string(previousLocation.x) + " " + std::to_string(previousLocation.y) + " " + std::to_string(previousLocation.z) + " minecraft:air");
             }
 
             // Update the agent's position
