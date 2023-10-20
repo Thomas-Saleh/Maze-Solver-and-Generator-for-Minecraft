@@ -29,7 +29,15 @@ public:
     ~Agent();
     
 
-   void initializePlayerBlock();
+   
+    void initializePlayerBlock();
+    void guideToExit();
+
+    mcpp::Coordinate getNextLocation(const mcpp::Coordinate& currentLocation, AgentOrientation orientation);
+    AgentOrientation getNewOrientation(const mcpp::Coordinate& currentLocation, const mcpp::Coordinate& nextLocation);
+    AgentOrientation turnRight(AgentOrientation orientation);
+
+
 
 private:
     /* data */

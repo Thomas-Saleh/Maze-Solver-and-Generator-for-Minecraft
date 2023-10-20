@@ -50,7 +50,7 @@ int main(void){
                 std::cin >> userChoice;
 
                 if (userChoice == 1){  
-                   
+                    maze.clear();
                     readBasePoint(baseX, baseY, baseZ);
 
                     readLengthAndWidth(mazeLength, mazeWidth);
@@ -64,7 +64,7 @@ int main(void){
 
                 if (userChoice == 2) {
                    
-
+                    maze.clear();
                     readBasePoint(baseX, baseY, baseZ);
                     readLengthAndWidth(mazeLength, mazeWidth);
 
@@ -76,11 +76,17 @@ int main(void){
                 }    
             }
             else if(userChoice == 2){
-                int height = baseY -47;
+                int height = baseY -60;
+                
                 std::string playerName = "@a";
                 std::string tpCommand = "tp " + playerName + " " + std::to_string(baseX) + " " + std::to_string(height) + " " + std::to_string(baseZ);
                 mc.doCommand(tpCommand);
+                mc.doCommand("fill ~-18 ~-2 ~-18 ~18 ~ ~18 minecraft:dirt");
+                height = baseY -47;
+                tpCommand = "tp " + playerName + " " + std::to_string(baseX) + " " + std::to_string(height) + " " + std::to_string(baseZ);
+                mc.doCommand(tpCommand);
                 mc.doCommand("fill ~-18 ~-13 ~-18 ~18 ~ ~18 minecraft:air");
+                
                  
                
                 Maze manualMaze;
