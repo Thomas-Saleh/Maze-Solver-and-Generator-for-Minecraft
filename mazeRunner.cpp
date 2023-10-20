@@ -103,8 +103,9 @@ int main(void){
 
                 if (userChoice == 2) {                
 
-                   Agent solveMaze(startLoc);
+                    Agent solveMaze(startLoc);
                     solveMaze.initializePlayerBlock();
+                    solveMaze.guideToExit();
                 }
                
             }
