@@ -11,18 +11,15 @@ Agent::~Agent()
 {
 }
 
+
 void Agent::initializePlayerBlock()
 {
+    // Initialization remains the same
     mcpp::MinecraftConnection mc;
     // Get the current player's location
     mcpp::Coordinate playerLoc = mc.getPlayerPosition();
-
     // Assume the initial orientation is X_PLUS
     currentOrientation = X_PLUS;
-
-    // No need to place a lime carpet at the start, as it's not part of the maze solution
-    // ...
-
     mcpp::BlockType blockInFront = mc.getBlock(playerLoc + MOVE_XPLUS);
     mcpp::BlockType blockBehind = mc.getBlock(playerLoc + MOVE_XMINUS);
     mcpp::BlockType blockLeft = mc.getBlock(playerLoc + MOVE_ZPLUS);
@@ -54,13 +51,13 @@ void Agent::guideToExit()
 
     int step = 0;
 
-    // Continue moving while following the right-hand wall
+    // Continue moving while following the left-hand wall
     while (true)
     {
         mcpp::Coordinate currentLocation = mc.getPlayerPosition();
 
         // Calculate the next location based on the current orientation
-        mcpp::Coordinate nextLocation = getNextLocation(currentLocation, currentOrientation);
+        mcpp::Coordinate nextLocation = getNextLocation(currentLocation, turnLeft(currentOrientation)); // Turn left for left-hand rule
 
         // Check if the next location is reachable (no wall)
         if (mc.getBlock(nextLocation) == mcpp::Blocks::AIR)
@@ -71,43 +68,44 @@ void Agent::guideToExit()
             // Output path coordinates to the terminal
             std::cout << "Step[" << step << "]: (" << nextLocation.x << ", " << nextLocation.y << ", " << nextLocation.z << ")\n";
 
-            // Remove the previous LIME CARPET block
+            // Remove the previous LIME CARPET block (if any)
             if (step > 0) {
-                mcpp::Coordinate previousLocation = getNextLocation(currentLocation, turnRight(turnRight(currentOrientation)));
+                mcpp::Coordinate previousLocation = getNextLocation(currentLocation, currentOrientation); // Remove block from the previous position
                 mc.doCommand("setblock " + std::to_string(previousLocation.x) + " " + std::to_string(previousLocation.y) + " " + std::to_string(previousLocation.z) + " minecraft:air");
             }
-
-            // Update the agent's position
-            mc.doCommand("tp @a " + std::to_string(nextLocation.x) + " " + std::to_string(nextLocation.y) + " " + std::to_string(nextLocation.z));
 
             // Update the agent's orientation based on the new location
             currentOrientation = getNewOrientation(currentLocation, nextLocation);
 
             step++;
+
+            // Sleep for approximately one second to pace the agent's movement
+            std::this_thread::sleep_for(std::chrono::seconds(1));
         }
         else
         {
-            // If a wall is encountered, turn right (clockwise)
-            currentOrientation = turnRight(currentOrientation);
+            // If a wall is encountered, turn left (counterclockwise)
+            currentOrientation = turnLeft(currentOrientation);
         }
-
-        // You can add a delay here to control the pacing of the agent's movement
-        // Sleep for approximately one second
-        std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
 
-AgentOrientation Agent::turnRight(AgentOrientation orientation)
+AgentOrientation Agent::turnLeft(AgentOrientation orientation)
 {
     switch (orientation)
     {
-        case X_PLUS: return Z_MINUS;
-        case Z_PLUS: return X_PLUS;
-        case X_MINUS: return Z_PLUS;
-        case Z_MINUS: return X_MINUS;
+        case X_PLUS: return Z_PLUS;
+        case Z_PLUS: return X_MINUS;
+        case X_MINUS: return Z_MINUS;
+        case Z_MINUS: return X_PLUS;
     }
     return orientation; // In case of unexpected input
 }
+
+// Other functions remain the same
+
+
+
 
 AgentOrientation Agent::getNewOrientation(const mcpp::Coordinate& currentLocation, const mcpp::Coordinate& nextLocation)
 {
