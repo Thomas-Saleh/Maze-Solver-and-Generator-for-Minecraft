@@ -35,7 +35,7 @@ public:
 
     mcpp::Coordinate getNextLocation(const mcpp::Coordinate& currentLocation, AgentOrientation orientation);
     AgentOrientation getNewOrientation(const mcpp::Coordinate& currentLocation, const mcpp::Coordinate& nextLocation);
-    AgentOrientation turnLeft(AgentOrientation orientation);
+    AgentOrientation turnRight(AgentOrientation orientation);
 
 
 
