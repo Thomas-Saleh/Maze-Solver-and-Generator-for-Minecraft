@@ -20,8 +20,7 @@ void Agent::initializePlayerBlock()
     // Assume the initial orientation is X_PLUS
     currentOrientation = X_PLUS;
 
-    // No need to place a lime carpet at the start, as it's not part of the maze solution
-    // ...
+
 
     mcpp::BlockType blockInFront = mc.getBlock(playerLoc + MOVE_XPLUS);
     mcpp::BlockType blockBehind = mc.getBlock(playerLoc + MOVE_XMINUS);
@@ -53,28 +52,30 @@ void Agent::guideToExit()
     initializePlayerBlock();
 
     int step = 0;
+    mcpp::Coordinate currentLocation = mc.getPlayerPosition();
+    mcpp::Coordinate previousLocation = currentLocation;
+    bool backtracking = false; // Flag to indicate if we are backtracking
 
     // Continue moving while following the right-hand wall
     while (true)
     {
-        mcpp::Coordinate currentLocation = mc.getPlayerPosition();
-
-        // Calculate the next location based on the current orientation
         mcpp::Coordinate nextLocation = getNextLocation(currentLocation, currentOrientation);
 
         // Check if the next location is reachable (no wall)
         if (mc.getBlock(nextLocation) == mcpp::Blocks::AIR)
         {
-            // Remove the block the user is going to step on
-            mc.doCommand("setblock " + std::to_string(nextLocation.x) + " " + std::to_string(nextLocation.y) + " " + std::to_string(nextLocation.z) + " minecraft:air");
-            mc.doCommand("setblock " + std::to_string(currentLocation.x) + " " + std::to_string(currentLocation.y + 1) + " " + std::to_string(currentLocation.z) + " minecraft:air");
-
-
-            // Place LIME CARPET block one step ahead
+            // Place a LIME CARPET block at the next location
             mc.doCommand("setblock " + std::to_string(nextLocation.x) + " " + std::to_string(nextLocation.y) + " " + std::to_string(nextLocation.z) + " minecraft:lime_carpet");
+
+            // Remove the previous LIME CARPET block
+            mc.doCommand("setblock " + std::to_string(previousLocation.x) + " " + std::to_string(previousLocation.y) + " " + std::to_string(previousLocation.z) + " minecraft:air");
 
             // Output path coordinates to the terminal
             std::cout << "Step[" << step << "]: (" << nextLocation.x << ", " << nextLocation.y << ", " << nextLocation.z << ")\n";
+
+            previousLocation = currentLocation;
+            currentLocation = nextLocation;
+            backtracking = false; // Reset backtracking flag
 
             // Update the agent's orientation based on the new location
             currentOrientation = getNewOrientation(currentLocation, nextLocation);
@@ -83,16 +84,24 @@ void Agent::guideToExit()
         }
         else
         {
-            // If a wall is encountered, turn right (clockwise)
-            currentOrientation = turnRight(currentOrientation);
+            if (!backtracking) {
+                // If a wall is encountered, turn left (counter-clockwise) instead of right
+                currentOrientation = turnRight(currentOrientation);
+                backtracking = true; // Set backtracking flag
+            }
+            else {
+                // If we are backtracking and encounter a wall on the left, it's a dead end
+                // In this case, we turn around 180 degrees
+                currentOrientation = turnRight(currentOrientation);
+                backtracking = false; // Reset backtracking flag
+            }
         }
 
-        // Delay the loop to control the pacing of the agent's movement
+        // You can add a delay here to control the pacing of the agent's movement
         // Sleep for approximately one second
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
-
 
 AgentOrientation Agent::turnRight(AgentOrientation orientation)
 {
