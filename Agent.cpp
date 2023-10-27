@@ -18,7 +18,7 @@ void Agent::initializePlayerBlock()
     mcpp::Coordinate playerLoc = mc.getPlayerPosition();
 
     // Assume the initial orientation is X_PLUS
-    currentOrientation = X_PLUS;
+    currentOrientation = X_MINUS;
 
 
 
@@ -59,6 +59,7 @@ void Agent::guideToExit()
     // Continue moving while following the right-hand wall
     while (true)
     {
+        currentOrientation = turnLeft(currentOrientation);
         mcpp::Coordinate nextLocation = getNextLocation(currentLocation, currentOrientation);
 
         // Check if the next location is reachable (no wall)
@@ -107,7 +108,7 @@ void Agent::guideToExit()
     }
 }
 
-AgentOrientation Agent::turnRight(AgentOrientation orientation)
+AgentOrientation Agent::turnLeft(AgentOrientation orientation)
 {
     switch (orientation)
     {
@@ -144,16 +145,16 @@ mcpp::Coordinate Agent::getNextLocation(const mcpp::Coordinate& currentLocation,
 
     switch (orientation) {
         case X_PLUS:
-            nextLocation.x += 1;
-            break;
-        case X_MINUS:
-            nextLocation.x -= 1;
+            nextLocation.z += 1; 
             break;
         case Z_PLUS:
-            nextLocation.z += 1;
+            nextLocation.x -= 1; 
+            break;
+        case X_MINUS:
+            nextLocation.z -= 1; 
             break;
         case Z_MINUS:
-            nextLocation.z -= 1;
+            nextLocation.x += 1; 
             break;
     }
 
@@ -168,6 +169,21 @@ AgentOrientation Agent::turnBack(AgentOrientation orientation)
         case Z_PLUS: return Z_MINUS;
         case X_MINUS: return X_PLUS;
         case Z_MINUS: return Z_PLUS;
+    }
+    return orientation; // In case of unexpected input
+}
+
+AgentOrientation Agent::turnRight(AgentOrientation orientation)
+{
+    switch (orientation) {
+        case X_PLUS:
+            return Z_PLUS;
+        case Z_PLUS:
+            return X_MINUS;
+        case X_MINUS:
+            return Z_MINUS;
+        case Z_MINUS:
+            return X_PLUS;
     }
     return orientation; // In case of unexpected input
 }
