@@ -62,13 +62,31 @@ void Agent::guideToExit()
         mcpp::Coordinate nextLocation = getNextLocation(currentLocation, currentOrientation);
 
         // Check if the next location is reachable (no wall)
-        if (mc.getBlock(nextLocation) == mcpp::Blocks::AIR)
+        if (mc.getBlock(nextLocation) == mcpp::Blocks::DIAMOND_BLOCK)
+        {
+            if (!backtracking) {
+                // If a wall is encountered, turn left (counter-clockwise) instead of right
+                currentOrientation = turnRight(currentOrientation);
+                backtracking = true; // Set backtracking flag
+            }
+            else {
+                // If we are backtracking and encounter a wall on the left, it's a dead end
+                // In this case, we turn around 180 degrees
+                mc.doCommand("setblock " + std::to_string(previousLocation.x) + " " + std::to_string(previousLocation.y) + " " + std::to_string(previousLocation.z) + " minecraft:air");
+
+                currentOrientation = turnBack(currentOrientation);
+                backtracking = false; // Reset backtracking flag
+            }
+
+            
+        }
+        else
         {
             // Place a LIME CARPET block at the next location
             mc.doCommand("setblock " + std::to_string(nextLocation.x) + " " + std::to_string(nextLocation.y) + " " + std::to_string(nextLocation.z) + " minecraft:lime_carpet");
 
             // Remove the previous LIME CARPET block
-            mc.doCommand("setblock " + std::to_string(previousLocation.x) + " " + std::to_string(previousLocation.y) + " " + std::to_string(previousLocation.z) + " minecraft:air");
+            mc.doCommand("setblock " + std::to_string(currentLocation.x) + " " + std::to_string(currentLocation.y) + " " + std::to_string(currentLocation.z) + " minecraft:air");
 
             // Output path coordinates to the terminal
             std::cout << "Step[" << step << "]: (" << nextLocation.x << ", " << nextLocation.y << ", " << nextLocation.z << ")\n";
@@ -81,20 +99,6 @@ void Agent::guideToExit()
             currentOrientation = getNewOrientation(currentLocation, nextLocation);
 
             step++;
-        }
-        else
-        {
-            if (!backtracking) {
-                // If a wall is encountered, turn left (counter-clockwise) instead of right
-                currentOrientation = turnRight(currentOrientation);
-                backtracking = true; // Set backtracking flag
-            }
-            else {
-                // If we are backtracking and encounter a wall on the left, it's a dead end
-                // In this case, we turn around 180 degrees
-                currentOrientation = turnRight(currentOrientation);
-                backtracking = false; // Reset backtracking flag
-            }
         }
 
         // You can add a delay here to control the pacing of the agent's movement
@@ -154,4 +158,16 @@ mcpp::Coordinate Agent::getNextLocation(const mcpp::Coordinate& currentLocation,
     }
 
     return nextLocation;
+}
+
+AgentOrientation Agent::turnBack(AgentOrientation orientation)
+{
+    switch (orientation)
+    {
+        case X_PLUS: return X_MINUS;
+        case Z_PLUS: return Z_MINUS;
+        case X_MINUS: return X_PLUS;
+        case Z_MINUS: return Z_PLUS;
+    }
+    return orientation; // In case of unexpected input
 }
