@@ -131,6 +131,16 @@ int main(void){
             else if(userChoice == 5){
                 printExitMessage();
                 curState = ST_Exit;
+                int height = baseY -60;
+                
+                std::string playerName = "@a";
+                std::string tpCommand = "tp " + playerName + " " + std::to_string(baseX) + " " + std::to_string(height) + " " + std::to_string(baseZ);
+                mc.doCommand(tpCommand);
+                mc.doCommand("fill ~-18 ~-2 ~-18 ~18 ~ ~18 minecraft:grass_block");
+                height = baseY -47;
+                tpCommand = "tp " + playerName + " " + std::to_string(baseX) + " " + std::to_string(height) + " " + std::to_string(baseZ);
+                mc.doCommand(tpCommand);
+                mc.doCommand("fill ~-18 ~-13 ~-18 ~18 ~ ~18 minecraft:air");
 
             }
             else {

@@ -55,9 +55,9 @@ void Agent::guideToExit()
     mcpp::Coordinate currentLocation = mc.getPlayerPosition();
     mcpp::Coordinate previousLocation = currentLocation;
     bool backtracking = false; // Flag to indicate if we are backtracking
-
+    bool isValid = true;
     // Continue moving while following the right-hand wall
-    while (true)
+    while (isValid == true)
     {
         currentOrientation = turnRight(currentOrientation);
         mcpp::Coordinate nextLocation = getNextLocation(currentLocation, currentOrientation);
@@ -71,8 +71,6 @@ void Agent::guideToExit()
                 backtracking = true; // Set backtracking flag
             }
             else {
-                // If we are backtracking and encounter a wall on the left, it's a dead end
-                // In this case, we turn around 180 degrees
                 mc.doCommand("setblock " + std::to_string(previousLocation.x) + " " + std::to_string(previousLocation.y) + " " + std::to_string(previousLocation.z) + " minecraft:air");
 
                 currentOrientation = turnBack(currentOrientation);
@@ -102,12 +100,44 @@ void Agent::guideToExit()
             step++;
         }
 
-        // You can add a delay here to control the pacing of the agent's movement
-        // Sleep for approximately one second
+       // isValid = CheckIfExit(mc, currentLocation, currentOrientation); 
+        
+
+
+   
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
 
+/*
+bool Agent::CheckIfExit(mcpp::MinecraftConnection& mc, mcpp::Coordinate currentLocation, AgentOrientation currentOrientation)
+{
+    // Check the current location
+    if (mc.getBlock(currentLocation) == mcpp::Blocks::AIR)
+    {
+        // Check the block in the direction of the current orientation
+        mcpp::Coordinate nextLocation = getNextLocation(currentLocation, currentOrientation);
+        if (mc.getBlock(nextLocation) == mcpp::Blocks::AIR)
+        {
+            // Check the block to the right of the current orientation
+            AgentOrientation rightOrientation = turnRight(currentOrientation);
+            nextLocation = getNextLocation(currentLocation, rightOrientation);
+            if (mc.getBlock(nextLocation) == mcpp::Blocks::AIR)
+            {
+                // Check the block to the right of the right orientation
+                rightOrientation = turnRight(rightOrientation);
+                nextLocation = getNextLocation(currentLocation, rightOrientation);
+                if (mc.getBlock(nextLocation) == mcpp::Blocks::AIR)
+                {
+                    // All adjacent blocks are air, which may indicate an exit
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+*/
 AgentOrientation Agent::turnLeft(AgentOrientation orientation)
 {
     switch (orientation)
