@@ -18,7 +18,7 @@ void Agent::initializePlayerBlock()
     mcpp::Coordinate playerLoc = mc.getPlayerPosition();
 
     // Assume the initial orientation is X_PLUS
-    currentOrientation = X_MINUS;
+    currentOrientation = Z_MINUS;
 
 
 
@@ -59,7 +59,7 @@ void Agent::guideToExit()
     // Continue moving while following the right-hand wall
     while (true)
     {
-        currentOrientation = turnLeft(currentOrientation);
+        currentOrientation = turnRight(currentOrientation);
         mcpp::Coordinate nextLocation = getNextLocation(currentLocation, currentOrientation);
 
         // Check if the next location is reachable (no wall)
@@ -67,7 +67,7 @@ void Agent::guideToExit()
         {
             if (!backtracking) {
                 // If a wall is encountered, turn left (counter-clockwise) instead of right
-                currentOrientation = turnRight(currentOrientation);
+                currentOrientation = turnLeft(currentOrientation);
                 backtracking = true; // Set backtracking flag
             }
             else {
