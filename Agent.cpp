@@ -100,7 +100,7 @@ void Agent::guideToExit()
             step++;
         }
 
-       // isValid = CheckIfExit(mc, currentLocation, currentOrientation); 
+        isValid = CheckIfExit(mc, currentLocation, currentOrientation); 
         
 
 
@@ -109,35 +109,35 @@ void Agent::guideToExit()
     }
 }
 
-/*
 bool Agent::CheckIfExit(mcpp::MinecraftConnection& mc, mcpp::Coordinate currentLocation, AgentOrientation currentOrientation)
 {
-    // Check the current location
-    if (mc.getBlock(currentLocation) == mcpp::Blocks::AIR)
+    // Calculate coordinates for the blocks in the desired pattern
+    mcpp::Coordinate blockInFront = getNextLocation(currentLocation, currentOrientation);
+    mcpp::Coordinate blockInFrontFront = getNextLocation(blockInFront, currentOrientation);
+    mcpp::Coordinate blockRight = getNextLocation(blockInFront, turnRight(currentOrientation));
+    mcpp::Coordinate blockBack = getNextLocation(blockRight, turnBack(currentOrientation));
+
+    // Check if all the specified blocks are air
+    bool frontIsAir = mc.getBlock(blockInFront) == mcpp::Blocks::AIR;
+    bool frontFrontIsAir = mc.getBlock(blockInFrontFront) == mcpp::Blocks::AIR;
+    bool rightIsAir = mc.getBlock(blockRight) == mcpp::Blocks::AIR;
+    bool backIsAir = mc.getBlock(blockBack) == mcpp::Blocks::AIR;
+
+    // If all blocks in the pattern are air, return true; otherwise, return false
+    if( frontIsAir && frontFrontIsAir && rightIsAir && backIsAir)
     {
-        // Check the block in the direction of the current orientation
-        mcpp::Coordinate nextLocation = getNextLocation(currentLocation, currentOrientation);
-        if (mc.getBlock(nextLocation) == mcpp::Blocks::AIR)
-        {
-            // Check the block to the right of the current orientation
-            AgentOrientation rightOrientation = turnRight(currentOrientation);
-            nextLocation = getNextLocation(currentLocation, rightOrientation);
-            if (mc.getBlock(nextLocation) == mcpp::Blocks::AIR)
-            {
-                // Check the block to the right of the right orientation
-                rightOrientation = turnRight(rightOrientation);
-                nextLocation = getNextLocation(currentLocation, rightOrientation);
-                if (mc.getBlock(nextLocation) == mcpp::Blocks::AIR)
-                {
-                    // All adjacent blocks are air, which may indicate an exit
-                    return true;
-                }
-            }
-        }
+        return false;
+        mc.doCommand("setblock " + std::to_string(currentLocation.x) + " " + std::to_string(currentLocation.y) + " " + std::to_string(currentLocation.z) + " minecraft:air");
+        std::cout << "\n";
+
     }
-    return false;
+    else 
+    {
+        return true;
+    }
 }
-*/
+
+
 AgentOrientation Agent::turnLeft(AgentOrientation orientation)
 {
     switch (orientation)

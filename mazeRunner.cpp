@@ -44,7 +44,16 @@ int main(void){
 
         printStartText();
         printMainMenu();
-        std::cin >> userChoice;    
+        std::cin >> userChoice;
+
+        if(std::cin.fail()){
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter a number." << std::endl;
+            continue;
+        }
+
+
             if(userChoice == 1){
                 bool noError = true;
                 while(noError == true){
@@ -121,6 +130,7 @@ int main(void){
                     Agent solveMaze(startLoc);
                     solveMaze.initializePlayerBlock();
                     solveMaze.guideToExit();
+                    printSolveMazeMenu();
                 }
                
             }
