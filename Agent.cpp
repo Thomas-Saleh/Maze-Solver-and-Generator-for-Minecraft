@@ -26,16 +26,16 @@ void Agent::initializePlayerBlock()
     mcpp::BlockType blockLeft = mc.getBlock(playerLoc + MOVE_ZPLUS);
     mcpp::BlockType blockRight = mc.getBlock(playerLoc + MOVE_ZMINUS);
 
-    if (blockInFront == mcpp::Blocks::DIAMOND_BLOCK) {
+    if (blockInFront == mcpp::Blocks::ACACIA_WOOD_PLANK) {
         currentOrientation = X_PLUS;
     }
-    else if (blockBehind == mcpp::Blocks::DIAMOND_BLOCK) {
+    else if (blockBehind == mcpp::Blocks::ACACIA_WOOD_PLANK) {
         currentOrientation = X_MINUS;
     }
-    else if (blockLeft == mcpp::Blocks::DIAMOND_BLOCK) {
+    else if (blockLeft == mcpp::Blocks::ACACIA_WOOD_PLANK) {
         currentOrientation = Z_PLUS;
     }
-    else if (blockRight == mcpp::Blocks::DIAMOND_BLOCK) {
+    else if (blockRight == mcpp::Blocks::ACACIA_WOOD_PLANK) {
         currentOrientation = Z_MINUS;
     }
 }
@@ -58,7 +58,7 @@ void Agent::guideToExit()
         mcpp::Coordinate nextLocation = getNextLocation(currentLocation, currentOrientation);
 
         
-        if (mc.getBlock(nextLocation) == mcpp::Blocks::DIAMOND_BLOCK)
+        if (mc.getBlock(nextLocation) == mcpp::Blocks::ACACIA_WOOD_PLANK)
         {
             if (!backtracking) {
                 // If a wall is encountered, turn left 

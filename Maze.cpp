@@ -24,9 +24,9 @@ void Maze::buildMaze(const std::vector<std::string>& maze, int length, int width
     for(int row = 0; row < length; row++){
                         for(int col = 0; col < width; col++){
                             if(maze[row][col] == 'x'){
-                                mc.setBlock(buildStart + mcpp::Coordinate(row, -60, col) , mcpp::Blocks::DIAMOND_BLOCK);
-                                mc.setBlock(buildStart + mcpp::Coordinate(row, -59, col) , mcpp::Blocks::DIAMOND_BLOCK); //Second layer of maze
-                                mc.setBlock(buildStart + mcpp::Coordinate(row, -58, col) , mcpp::Blocks::DIAMOND_BLOCK);
+                                mc.setBlock(buildStart + mcpp::Coordinate(row, -60, col) , mcpp::Blocks::ACACIA_WOOD_PLANK);
+                                mc.setBlock(buildStart + mcpp::Coordinate(row, -59, col) , mcpp::Blocks::ACACIA_WOOD_PLANK); //Second layer of maze
+                                mc.setBlock(buildStart + mcpp::Coordinate(row, -58, col) , mcpp::Blocks::ACACIA_WOOD_PLANK);
 
                             }
                             else{
