@@ -17,7 +17,6 @@ void Agent::initializePlayerBlock()
     // Get the current player's location
     mcpp::Coordinate playerLoc = mc.getPlayerPosition();
 
-    // Assume the initial orientation is X_PLUS
     currentOrientation = Z_MINUS;
 
 
@@ -28,19 +27,15 @@ void Agent::initializePlayerBlock()
     mcpp::BlockType blockRight = mc.getBlock(playerLoc + MOVE_ZMINUS);
 
     if (blockInFront == mcpp::Blocks::DIAMOND_BLOCK) {
-        // Initialize the orientation with the right hand facing the wall in front
         currentOrientation = X_PLUS;
     }
     else if (blockBehind == mcpp::Blocks::DIAMOND_BLOCK) {
-        // Initialize the orientation with the right hand facing the wall behind
         currentOrientation = X_MINUS;
     }
     else if (blockLeft == mcpp::Blocks::DIAMOND_BLOCK) {
-        // Initialize the orientation with the right hand facing the wall on the left
         currentOrientation = Z_PLUS;
     }
     else if (blockRight == mcpp::Blocks::DIAMOND_BLOCK) {
-        // Initialize the orientation with the right hand facing the wall on the right
         currentOrientation = Z_MINUS;
     }
 }
@@ -54,27 +49,27 @@ void Agent::guideToExit()
     int step = 0;
     mcpp::Coordinate currentLocation = mc.getPlayerPosition();
     mcpp::Coordinate previousLocation = currentLocation;
-    bool backtracking = false; // Flag to indicate if we are backtracking
+    bool backtracking = false; 
     bool isValid = true;
-    // Continue moving while following the right-hand wall
+   
     while (isValid == true)
     {
         currentOrientation = turnRight(currentOrientation);
         mcpp::Coordinate nextLocation = getNextLocation(currentLocation, currentOrientation);
 
-        // Check if the next location is reachable (no wall)
+        
         if (mc.getBlock(nextLocation) == mcpp::Blocks::DIAMOND_BLOCK)
         {
             if (!backtracking) {
-                // If a wall is encountered, turn left (counter-clockwise) instead of right
+                // If a wall is encountered, turn left 
                 currentOrientation = turnLeft(currentOrientation);
-                backtracking = true; // Set backtracking flag
+                backtracking = true; 
             }
             else {
                 mc.doCommand("setblock " + std::to_string(previousLocation.x) + " " + std::to_string(previousLocation.y) + " " + std::to_string(previousLocation.z) + " minecraft:air");
 
                 currentOrientation = turnBack(currentOrientation);
-                backtracking = false; // Reset backtracking flag
+                backtracking = false; 
             }
 
             
@@ -92,7 +87,7 @@ void Agent::guideToExit()
 
             previousLocation = currentLocation;
             currentLocation = nextLocation;
-            backtracking = false; // Reset backtracking flag
+            backtracking = false; 
 
             // Update the agent's orientation based on the new location
             currentOrientation = getNewOrientation(currentLocation, nextLocation);
@@ -111,19 +106,16 @@ void Agent::guideToExit()
 
 bool Agent::CheckIfExit(mcpp::MinecraftConnection& mc, mcpp::Coordinate currentLocation, AgentOrientation currentOrientation)
 {
-    // Calculate coordinates for the blocks in the desired pattern
     mcpp::Coordinate blockInFront = getNextLocation(currentLocation, currentOrientation);
     mcpp::Coordinate blockInFrontFront = getNextLocation(blockInFront, currentOrientation);
     mcpp::Coordinate blockRight = getNextLocation(blockInFront, turnRight(currentOrientation));
     mcpp::Coordinate blockBack = getNextLocation(blockRight, turnBack(currentOrientation));
 
-    // Check if all the specified blocks are air
     bool frontIsAir = mc.getBlock(blockInFront) == mcpp::Blocks::AIR;
     bool frontFrontIsAir = mc.getBlock(blockInFrontFront) == mcpp::Blocks::AIR;
     bool rightIsAir = mc.getBlock(blockRight) == mcpp::Blocks::AIR;
     bool backIsAir = mc.getBlock(blockBack) == mcpp::Blocks::AIR;
 
-    // If all blocks in the pattern are air, return true; otherwise, return false
     if( frontIsAir && frontFrontIsAir && rightIsAir && backIsAir)
     {
         return false;
@@ -147,7 +139,7 @@ AgentOrientation Agent::turnLeft(AgentOrientation orientation)
         case X_MINUS: return Z_PLUS;
         case Z_MINUS: return X_MINUS;
     }
-    return orientation; // In case of unexpected input
+    return orientation; 
 }
 
 AgentOrientation Agent::getNewOrientation(const mcpp::Coordinate& currentLocation, const mcpp::Coordinate& nextLocation)
@@ -165,7 +157,7 @@ AgentOrientation Agent::getNewOrientation(const mcpp::Coordinate& currentLocatio
         return Z_MINUS;
     }
 
-    // Default orientation (no change)
+
     return currentOrientation;
 }
 
@@ -200,7 +192,7 @@ AgentOrientation Agent::turnBack(AgentOrientation orientation)
         case X_MINUS: return X_PLUS;
         case Z_MINUS: return Z_PLUS;
     }
-    return orientation; // In case of unexpected input
+    return orientation; 
 }
 
 AgentOrientation Agent::turnRight(AgentOrientation orientation)
@@ -215,5 +207,5 @@ AgentOrientation Agent::turnRight(AgentOrientation orientation)
         case Z_MINUS:
             return X_PLUS;
     }
-    return orientation; // In case of unexpected input
+    return orientation; 
 }
