@@ -38,6 +38,7 @@ public:
     AgentOrientation turnLeft(AgentOrientation orientation);
     AgentOrientation turnBack(AgentOrientation orientation);
     AgentOrientation turnRight(AgentOrientation orientation);
+    bool CheckIfExit(mcpp::MinecraftConnection& mc, mcpp::Coordinate currentLocation, AgentOrientation currentOrientation);
 
     
 

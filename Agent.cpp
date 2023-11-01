@@ -18,7 +18,7 @@ void Agent::initializePlayerBlock()
     mcpp::Coordinate playerLoc = mc.getPlayerPosition();
 
     // Assume the initial orientation is X_PLUS
-    currentOrientation = X_MINUS;
+    currentOrientation = Z_MINUS;
 
 
 
@@ -55,11 +55,11 @@ void Agent::guideToExit()
     mcpp::Coordinate currentLocation = mc.getPlayerPosition();
     mcpp::Coordinate previousLocation = currentLocation;
     bool backtracking = false; // Flag to indicate if we are backtracking
-
+    bool isValid = true;
     // Continue moving while following the right-hand wall
-    while (true)
+    while (isValid == true)
     {
-        currentOrientation = turnLeft(currentOrientation);
+        currentOrientation = turnRight(currentOrientation);
         mcpp::Coordinate nextLocation = getNextLocation(currentLocation, currentOrientation);
 
         // Check if the next location is reachable (no wall)
@@ -67,12 +67,10 @@ void Agent::guideToExit()
         {
             if (!backtracking) {
                 // If a wall is encountered, turn left (counter-clockwise) instead of right
-                currentOrientation = turnRight(currentOrientation);
+                currentOrientation = turnLeft(currentOrientation);
                 backtracking = true; // Set backtracking flag
             }
             else {
-                // If we are backtracking and encounter a wall on the left, it's a dead end
-                // In this case, we turn around 180 degrees
                 mc.doCommand("setblock " + std::to_string(previousLocation.x) + " " + std::to_string(previousLocation.y) + " " + std::to_string(previousLocation.z) + " minecraft:air");
 
                 currentOrientation = turnBack(currentOrientation);
@@ -102,11 +100,43 @@ void Agent::guideToExit()
             step++;
         }
 
-        // You can add a delay here to control the pacing of the agent's movement
-        // Sleep for approximately one second
+        isValid = CheckIfExit(mc, currentLocation, currentOrientation); 
+        
+
+
+   
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
+
+bool Agent::CheckIfExit(mcpp::MinecraftConnection& mc, mcpp::Coordinate currentLocation, AgentOrientation currentOrientation)
+{
+    // Calculate coordinates for the blocks in the desired pattern
+    mcpp::Coordinate blockInFront = getNextLocation(currentLocation, currentOrientation);
+    mcpp::Coordinate blockInFrontFront = getNextLocation(blockInFront, currentOrientation);
+    mcpp::Coordinate blockRight = getNextLocation(blockInFront, turnRight(currentOrientation));
+    mcpp::Coordinate blockBack = getNextLocation(blockRight, turnBack(currentOrientation));
+
+    // Check if all the specified blocks are air
+    bool frontIsAir = mc.getBlock(blockInFront) == mcpp::Blocks::AIR;
+    bool frontFrontIsAir = mc.getBlock(blockInFrontFront) == mcpp::Blocks::AIR;
+    bool rightIsAir = mc.getBlock(blockRight) == mcpp::Blocks::AIR;
+    bool backIsAir = mc.getBlock(blockBack) == mcpp::Blocks::AIR;
+
+    // If all blocks in the pattern are air, return true; otherwise, return false
+    if( frontIsAir && frontFrontIsAir && rightIsAir && backIsAir)
+    {
+        return false;
+        mc.doCommand("setblock " + std::to_string(currentLocation.x) + " " + std::to_string(currentLocation.y) + " " + std::to_string(currentLocation.z) + " minecraft:air");
+        std::cout << "\n";
+
+    }
+    else 
+    {
+        return true;
+    }
+}
+
 
 AgentOrientation Agent::turnLeft(AgentOrientation orientation)
 {
