@@ -116,7 +116,9 @@ int main(void){
                 manualMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
                
             }
+
             else if(userChoice == 3){
+                while(true){
                 printSolveMazeMenu();
                 std::cin >> userChoice;
 
@@ -125,15 +127,22 @@ int main(void){
                    teleportToMaze.teleportPlayerToRandomDot(maze);
                 }
 
-                if (userChoice == 2) {                
+                else if (userChoice == 2) {                
 
                     Agent solveMaze(startLoc);
                     solveMaze.initializePlayerBlock();
                     solveMaze.guideToExit();
                     printSolveMazeMenu();
                 }
-               
+                else if(userChoice == 3){
+                    continue;
+                }
+                else{
+                    std::cout << "Invalid choice. Please enter a number from 1 to 3." << std::endl;
+                }
+               }
             }
+
             else if(userChoice == 4){
                 printTeamInfo();
                
