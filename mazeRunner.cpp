@@ -99,6 +99,12 @@ int main(void){
             }
 
             else if(userChoice == 2){
+
+                if(maze.empty()){
+                    std::cout << "Maze has not been created. Please generate a maze before attempting to build one." << std::endl;
+                    continue;
+                }
+
                 int height = baseY -60;
                 
                 std::string playerName = "@a";
@@ -118,6 +124,12 @@ int main(void){
             }
 
             else if(userChoice == 3){
+                
+                if(maze.empty()){
+                    std::cout << "Maze has not been created. Please generate a maze before attempting to build one." << std::endl;
+                    continue;
+                }
+                
                 while(true){
                 printSolveMazeMenu();
                 std::cin >> userChoice;
