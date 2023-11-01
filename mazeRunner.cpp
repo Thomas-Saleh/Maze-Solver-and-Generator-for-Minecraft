@@ -121,6 +121,7 @@ int main(void){
                     Agent solveMaze(startLoc);
                     solveMaze.initializePlayerBlock();
                     solveMaze.guideToExit();
+                    printSolveMazeMenu();
                 }
                
             }
