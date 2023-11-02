@@ -53,7 +53,7 @@ int main(void){
             continue;
         }
 
-
+            // generate maze
             if(userChoice == 1){
                 bool noError = true;
 
@@ -70,7 +70,7 @@ int main(void){
                     std::cin >> userChoice;
 
                 
-
+                    // read maze from terminal
                     if (userChoice == 1){  
                         maze.clear();
                         readBasePoint(baseX, baseY, baseZ);
@@ -85,7 +85,7 @@ int main(void){
                         continue;
                    
                     }              
-
+                    // generate random maze
                     else if (userChoice == 2) {
                         maze.clear();
                         readBasePoint(baseX, baseY, baseZ);
@@ -99,19 +99,21 @@ int main(void){
                         noError = false;
                         continue;
                     }   
+                    // back
                     else if(userChoice == 3){
                         noError = false;
                        
                         
                     } 
+                    // error prevention
                     else{
                         std::cout << "Error. Please enter a number from 1 to 3" << std::endl;
                     }
                 }
             }
-
+            // build maze in minecraft
             else if(userChoice == 2){
-
+                // error prevention 
                 if(maze.empty()){
                     std::cout << "Maze has not been created. Please generate a maze before attempting to build one." << std::endl;
                     continue;
@@ -134,9 +136,9 @@ int main(void){
                 manualMaze.buildMaze(maze, mazeLength, mazeWidth, buildStart);
                
             }
-
+            //Solve Maze
             else if(userChoice == 3){
-                
+                // error prevention
                 if(maze.empty()){
                     std::cout << "Maze has not been created. Please generate a maze before attempting to build one." << std::endl;
                     continue;
@@ -146,12 +148,12 @@ int main(void){
                 printSolveMazeMenu();
 
                 std::cin >> userChoice;
-
+                // Solve manually
                 if (userChoice == 1) {
                    Maze teleportToMaze;
                    teleportToMaze.teleportPlayerToRandomDot(maze);
                 }
-
+                // Show escape route
                 else if (userChoice == 2) {                
 
                     Agent solveMaze(startLoc);
@@ -159,6 +161,7 @@ int main(void){
                     solveMaze.guideToExit();
                     printSolveMazeMenu();
                 }
+                // back
                 else if(userChoice == 3){
                     backCheck = false;
                 }
@@ -171,11 +174,12 @@ int main(void){
                }
               
             }
-
+            //show team info
             else if(userChoice == 4){
                 printTeamInfo();
                
             }
+            // exit
             else if(userChoice == 5){
                 printExitMessage();
                 curState = ST_Exit;

@@ -59,9 +59,9 @@ void printTeamInfo(void) {
     printTextWithDelay("Team members:", 50);
 
     // TODO: change this part to reflect your team
-    printTextWithDelay("\t [1] Marko Cukanic (s4008040@rmit.edu.au)", 20);
-    printTextWithDelay("\t [2] Vincent Dao (s4007708@rmit.edu.au)", 20);
-    printTextWithDelay("\t [3] Thomas Saleh (s4006031@rmit.edu.au)", 20);
+    printTextWithDelay("\t [1] Marko Cukanic (s4008040@student.rmit.edu.au)", 20);
+    printTextWithDelay("\t [2] Vincent Dao (s4007708@student.rmit.edu.au)", 20);
+    printTextWithDelay("\t [3] Thomas Saleh (s4006031@student.rmit.edu.au)", 20);
     // *************
 
     std::cout << std::endl;
