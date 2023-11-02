@@ -73,27 +73,19 @@ void printExitMessage(void) {
     std::cout << std::endl;
 }
 
-void readBasePoint(int& xCor, int& yCor, int& zCor) {
-    std::string input;
-    bool validInput = false;
-
-
-    // Clear any newcharacters in terminal
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    while (!validInput) {
-        printTextWithDelay("Enter the basePoint of maze in the format [X Y Z]: ", 50);
-
-        std::getline(std::cin, input);
-
-        std::stringstream ss(input);
-
-        if (ss >> xCor && ss.get() == ' ' && ss >> yCor && ss.get() == ' ' && ss >> zCor && ss.eof()) {
-            validInput = true;
-        } else {
-            std::cout << "Invalid input. Please enter the format [X Y Z]." << std::endl;
+bool isNumber(const std::string& str) {
+    // Check if a string represents a valid number.
+    for (char c : str) {
+        if (!std::isdigit(c) && c != '-' && c != '+') {
+            return false;
         }
     }
+    return true;
+}
+
+void readBasePoint(int& xCor, int& yCor, int& zCor) {
+    printTextWithDelay("Enter the basePoint of maze in the format 'X Y Z'", 50);
+    std::cin >> xCor >> yCor >> zCor;
 }
 
 void readLengthAndWidth(int& length, int& width) {
@@ -101,9 +93,9 @@ void readLengthAndWidth(int& length, int& width) {
     bool validInput = false;
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    printTextWithDelay("Enter the length and width of the maze 'L W': ", 50);
 
     while (!validInput) {
-        printTextWithDelay("Enter the length and width of the maze [L W]: ", 50);
 
         std::getline(std::cin, input);
 
