@@ -11,6 +11,7 @@ Agent::~Agent()
 {
 }
 
+// Initialize the player's block and orientation.
 void Agent::initializePlayerBlock()
 {
     mcpp::MinecraftConnection mc;

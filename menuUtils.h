@@ -5,7 +5,7 @@
 #include <string>
 #include <sstream>
 #include <cctype>
-
+//Adds a delay when printing each character
 void printTextWithDelay(const std::string& text, int delay_ms) {
     for (char c : text) {
         std::cout << c << std::flush;
@@ -73,15 +73,7 @@ void printExitMessage(void) {
     std::cout << std::endl;
 }
 
-bool isNumber(const std::string& str) {
-    // Check if a string represents a valid number.
-    for (char c : str) {
-        if (!std::isdigit(c) && c != '-' && c != '+') {
-            return false;
-        }
-    }
-    return true;
-}
+
 
 void readBasePoint(int& xCor, int& yCor, int& zCor) {
     std::string input;
@@ -89,17 +81,20 @@ void readBasePoint(int& xCor, int& yCor, int& zCor) {
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    printTextWithDelay("Enter the basePoint of maze in the format [X Y Z]: ", 50);
+    printTextWithDelay("Enter the basePoint of maze in the format 'X Y Z': ", 50);
 
     while (!validInput) {
         std::getline(std::cin, input);
+        
 
+      
         std::istringstream ss(input);
 
         if (ss >> xCor >> yCor >> zCor && ss.eof()) {
+            printTextWithDelay("Press Enter again", 50);
             validInput = true;
         } else {
-            std::cout << "Invalid input. Please enter the format [X Y Z]." << std::endl;
+            std::cout << "Invalid input. Please enter the format 'X Y Z'." << std::endl;
         }
     }
 }
