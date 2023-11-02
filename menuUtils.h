@@ -84,8 +84,24 @@ bool isNumber(const std::string& str) {
 }
 
 void readBasePoint(int& xCor, int& yCor, int& zCor) {
-    printTextWithDelay("Enter the basePoint of maze in the format 'X Y Z'", 50);
-    std::cin >> xCor >> yCor >> zCor;
+    std::string input;
+    bool validInput = false;
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    printTextWithDelay("Enter the basePoint of maze in the format [X Y Z]: ", 50);
+
+    while (!validInput) {
+        std::getline(std::cin, input);
+
+        std::istringstream ss(input);
+
+        if (ss >> xCor >> yCor >> zCor && ss.eof()) {
+            validInput = true;
+        } else {
+            std::cout << "Invalid input. Please enter the format [X Y Z]." << std::endl;
+        }
+    }
 }
 
 void readLengthAndWidth(int& length, int& width) {
