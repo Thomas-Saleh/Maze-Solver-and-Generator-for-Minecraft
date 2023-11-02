@@ -91,6 +91,7 @@ int main(void){
                     else if(userChoice == 3){
                         noError = false;
                         continue;
+                        
                     } 
                     else{
                         std::cout << "Error. Please enter a number from 1 to 3" << std::endl;
@@ -129,9 +130,10 @@ int main(void){
                     std::cout << "Maze has not been created. Please generate a maze before attempting to build one." << std::endl;
                     continue;
                 }
-                
-                while(true){
+                bool backCheck = true;
+                while(backCheck){
                 printSolveMazeMenu();
+
                 std::cin >> userChoice;
 
                 if (userChoice == 1) {
@@ -147,12 +149,16 @@ int main(void){
                     printSolveMazeMenu();
                 }
                 else if(userChoice == 3){
-                    continue;
+                    backCheck = false;
                 }
                 else{
                     std::cout << "Invalid choice. Please enter a number from 1 to 3." << std::endl;
                 }
+                
+                
+               
                }
+              
             }
 
             else if(userChoice == 4){
