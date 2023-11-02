@@ -5,7 +5,7 @@
 #include <string>
 #include <sstream>
 #include <cctype>
-
+//Adds a delay when printing each character
 void printTextWithDelay(const std::string& text, int delay_ms) {
     for (char c : text) {
         std::cout << c << std::flush;
@@ -73,25 +73,28 @@ void printExitMessage(void) {
     std::cout << std::endl;
 }
 
+
+
 void readBasePoint(int& xCor, int& yCor, int& zCor) {
     std::string input;
     bool validInput = false;
 
-
-    // Clear any newcharacters in terminal
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
+    printTextWithDelay("Enter the basePoint of maze in the format 'X Y Z': ", 50);
+
     while (!validInput) {
-        printTextWithDelay("Enter the basePoint of maze in the format [X Y Z]: ", 50);
-
         std::getline(std::cin, input);
+        
 
-        std::stringstream ss(input);
+      
+        std::istringstream ss(input);
 
-        if (ss >> xCor && ss.get() == ' ' && ss >> yCor && ss.get() == ' ' && ss >> zCor && ss.eof()) {
+        if (ss >> xCor >> yCor >> zCor && ss.eof()) {
+            printTextWithDelay("Press Enter again", 50);
             validInput = true;
         } else {
-            std::cout << "Invalid input. Please enter the format [X Y Z]." << std::endl;
+            std::cout << "Invalid input. Please enter the format 'X Y Z'." << std::endl;
         }
     }
 }
@@ -101,9 +104,9 @@ void readLengthAndWidth(int& length, int& width) {
     bool validInput = false;
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    printTextWithDelay("Enter the length and width of the maze 'L W': ", 50);
 
     while (!validInput) {
-        printTextWithDelay("Enter the length and width of the maze [L W]: ", 50);
 
         std::getline(std::cin, input);
 
