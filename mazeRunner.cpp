@@ -56,9 +56,20 @@ int main(void){
 
             if(userChoice == 1){
                 bool noError = true;
+
                 while(noError == true){
+
+                    
+                if(std::cin.fail()){
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Invalid input. Please enter a number." << std::endl;
+                    continue;
+                }
                     printGenerateMazeMenu();
                     std::cin >> userChoice;
+
+                
 
                     if (userChoice == 1){  
                         maze.clear();
@@ -90,7 +101,7 @@ int main(void){
                     }   
                     else if(userChoice == 3){
                         noError = false;
-                        continue;
+                       
                         
                     } 
                     else{

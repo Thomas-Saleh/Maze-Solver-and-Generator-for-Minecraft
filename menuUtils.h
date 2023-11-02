@@ -3,6 +3,8 @@
 #include <thread>
 #include <chrono>
 #include <string>
+#include <sstream>
+#include <cctype>
 
 void printTextWithDelay(const std::string& text, int delay_ms) {
     for (char c : text) {
@@ -72,13 +74,51 @@ void printExitMessage(void) {
 }
 
 void readBasePoint(int& xCor, int& yCor, int& zCor) {
-    printTextWithDelay("Enter the basePoint of maze in the format [X Y Z]", 50);
-    std::cin >> xCor >> yCor >> zCor;
+    std::string input;
+    bool validInput = false;
+
+
+    // Clear any newcharacters in terminal
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    while (!validInput) {
+        printTextWithDelay("Enter the basePoint of maze in the format [X Y Z]: ", 50);
+
+        std::getline(std::cin, input);
+
+        std::stringstream ss(input);
+
+        if (ss >> xCor && ss.get() == ' ' && ss >> yCor && ss.get() == ' ' && ss >> zCor && ss.eof()) {
+            validInput = true;
+        } else {
+            std::cout << "Invalid input. Please enter the format [X Y Z]." << std::endl;
+        }
+    }
 }
 
 void readLengthAndWidth(int& length, int& width) {
-    printTextWithDelay("Enter the length and width of the maze [L W]", 50);
-    std::cin >> length >> width;
+    std::string input;
+    bool validInput = false;
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    while (!validInput) {
+        printTextWithDelay("Enter the length and width of the maze [L W]: ", 50);
+
+        std::getline(std::cin, input);
+
+        std::stringstream ss(input);
+
+        if (ss >> length && ss.get() == ' ' && ss >> width && ss.eof()) {
+            if (length > 0 && width > 0) {
+                validInput = true;
+            } else {
+                std::cout << "Both inputs must be positive integers." << std::endl;
+            }
+        } else {
+            std::cout << "Invalid input. Please enter the format [L W] with positive integers." << std::endl;
+        }
+    }
 }
 
 void readMazeStructure(std::vector<std::string>& maze, int length, int width) {
